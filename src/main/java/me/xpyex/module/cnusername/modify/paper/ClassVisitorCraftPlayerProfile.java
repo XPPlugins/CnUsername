@@ -24,7 +24,7 @@ public class ClassVisitorCraftPlayerProfile extends PatternVisitor {
 
     @Override
     public MethodVisitor onVisitMethod(int access, String name, String descriptor, String signature, String[] exceptions) {
-        MethodVisitor visitor = super.visitMethod(access, name, descriptor, signature, exceptions);
+        MethodVisitor visitor = getDefaultMethodVisitor(access, name, descriptor, signature, exceptions);
         if ("createAuthLibProfile".equals(name) && (access & Opcodes.ACC_STATIC) > 0 && "(Ljava/util/UUID;Ljava/lang/String;)Lcom/mojang/authlib/GameProfile;".equals(descriptor)) {
             Logging.info("正在修改 " + getClassName() + " 类中的 " + name + "(UUID, String) 方法");
             return new MethodVisitor(Opcodes.ASM9, visitor) {  //删除该方法内第一行代码 string.length() 的检查

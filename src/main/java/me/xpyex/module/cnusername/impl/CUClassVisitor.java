@@ -26,7 +26,12 @@ public abstract class CUClassVisitor extends ClassVisitor {
         if (canLoad) {
             return onVisitMethod(access, name, descriptor, signature, exceptions);
         }
+        return getDefaultMethodVisitor(access, name, descriptor, signature, exceptions);
+    }
+
+    public final MethodVisitor getDefaultMethodVisitor(int access, String name, String descriptor, String signature, String[] exceptions) {
         return super.visitMethod(access, name, descriptor, signature, exceptions);
+        //子类执行的super.visitMethod()会执行到CUClassVisitor的visitMethod()，会造成递归
     }
 
     public abstract MethodVisitor onVisitMethod(int access, String name, String descriptor, String signature, String[] exceptions);
