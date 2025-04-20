@@ -15,6 +15,7 @@ import java.util.Enumeration;
 import java.util.UUID;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
+import me.xpyex.module.cnusername.impl.CUClassVisitor;
 import me.xpyex.module.cnusername.pass.Pass;
 import me.xpyex.module.cnusername.pass.PassRegistry;
 import me.xpyex.module.cnusername.pass.RetransformPass;
@@ -26,7 +27,7 @@ public class CnUsername {
     public static final String DEFAULT_PATTERN = "^[a-zA-Z0-9_]{3,16}|[a-zA-Z0-9_\u4e00-\u9fa5]{2,10}|CS\\-CoreLib$";
     public static final File MODULE_FOLDER = new File("CnUsername");
     public static final boolean DEBUG;
-    public static Version MC_VERSION = null;
+    private static Version MC_VERSION = null;
 
     static {
         boolean debugResult;
@@ -90,7 +91,11 @@ public class CnUsername {
 
                 ClassReader reader = new ClassReader(classfileBuffer);
                 ClassWriter classWriter = new ClassWriter(reader, ClassWriter.COMPUTE_FRAMES);
-                ClassVisitor classVisitor = pass.create(className.replace('/', '.'), classWriter, agentArgs);
+                CUClassVisitor classVisitor = pass.create(className.replace('/', '.'), classWriter, agentArgs);
+                if (!classVisitor.canLoad) {
+                    return null;
+                }
+
                 reader.accept(classVisitor, 0);
                 byte[] modifiedClassfileBuffer = classWriter.toByteArray();
 
@@ -159,7 +164,8 @@ public class CnUsername {
     public static Version getMcVersion() {
         if (MC_VERSION == null) {
             File properties = new File("server.properties").getAbsoluteFile();
-            files: for (File file : properties.getParentFile().listFiles()) {
+            files:
+            for (File file : properties.getParentFile().listFiles()) {
                 if (file.isFile() && file.getName().endsWith(".jar")) {
                     try (JarFile jar = new JarFile(file)) {
                         Enumeration<JarEntry> enumFiles = jar.entries();

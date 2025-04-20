@@ -2,27 +2,15 @@ package me.xpyex.plugin.cnusername.bukkit;
 
 import java.io.IOException;
 import java.lang.Runtime.Version;
-import java.lang.instrument.ClassFileTransformer;
-import java.lang.instrument.IllegalClassFormatException;
 import java.lang.instrument.Instrumentation;
-import java.lang.instrument.UnmodifiableClassException;
-import java.security.ProtectionDomain;
-import java.util.*;
-import java.util.function.Function;
-import java.util.stream.Collectors;
-
-import bot.inker.acj.JvmHacker;
 import me.xpyex.module.cnusername.CnUsername;
 import me.xpyex.module.cnusername.Logging;
 import me.xpyex.module.cnusername.UpdateChecker;
 import me.xpyex.module.cnusername.minecraft.ClassVisitorLoginListener;
 import me.xpyex.module.cnusername.mojang.ClassVisitorStringUtil;
 import me.xpyex.module.cnusername.paper.ClassVisitorCraftPlayerProfile;
-import me.xpyex.module.cnusername.pass.Pass;
-import me.xpyex.module.cnusername.pass.PassRegistry;
 import me.xpyex.plugin.cnusername.CnUsernamePlugin;
 import org.bukkit.Bukkit;
-import org.bukkit.Instrument;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerPreLoginEvent;
@@ -60,6 +48,20 @@ public final class CnUsernameBK extends JavaPlugin implements CnUsernamePlugin {
             } else {
                 applyInstrumentation(instrumentation);
             }
+        }
+    }
+
+    /**
+     * 运行中动态加载字节码
+     *
+     * @param className 类名
+     * @param bytes     字节码
+     */
+    public static void loadClass(String className, byte[] bytes) {
+        try {
+            CnUsernamePlugin.getDefineClassMethod().invoke(Bukkit.class.getClassLoader(), className, bytes, 0, bytes.length);
+        } catch (Throwable e) {
+            throw new IllegalStateException("修改类 " + className + " 失败!", e);
         }
     }
 
@@ -102,20 +104,6 @@ public final class CnUsernameBK extends JavaPlugin implements CnUsernamePlugin {
         } catch (Exception e) {
             if (CnUsername.DEBUG) e.printStackTrace();
             Logging.warning("修改CraftPlayerProfile类失败: " + e);
-        }
-    }
-
-    /**
-     * 运行中动态加载字节码
-     *
-     * @param className 类名
-     * @param bytes     字节码
-     */
-    public static void loadClass(String className, byte[] bytes) {
-        try {
-            CnUsernamePlugin.getDefineClassMethod().invoke(Bukkit.class.getClassLoader(), className, bytes, 0, bytes.length);
-        } catch (Throwable e) {
-            throw new IllegalStateException("修改类 " + className + " 失败!", e);
         }
     }
 
@@ -168,18 +156,6 @@ public final class CnUsernameBK extends JavaPlugin implements CnUsernamePlugin {
     public void onEnable() {
         Logging.info("进入插件启用流程");
         getServer().getScheduler().runTaskAsynchronously(this, UpdateChecker::check);
-        getServer().getScheduler().runTaskAsynchronously(this, () -> {
-            if (getServer().getPluginManager().isPluginEnabled("XPLib")) {
-                try {
-                    Class<?> metricsClass = Class.forName("me.xpyex.plugin.xplib.bukkit.bstats.Metrics");
-                    metricsClass.getConstructor(JavaPlugin.class, int.class).newInstance(this, 19275);
-                } catch (ReflectiveOperationException e) {
-                    Logging.warning("无法调用XPLib的BStats库: " + e);
-                    if (CnUsername.DEBUG) e.printStackTrace();
-                    Logging.info("不用担心，这并不会影响你的使用 :)");
-                }
-            }
-        });
         getServer().getPluginManager().registerEvents(new Listener() {
             @EventHandler
             public void onPreLogin(AsyncPlayerPreLoginEvent event) {

@@ -1,26 +1,25 @@
 package me.xpyex.module.cnusername.mojang;
 
 import me.xpyex.module.cnusername.Logging;
+import me.xpyex.module.cnusername.impl.CUClassVisitor;
 import org.objectweb.asm.ClassVisitor;
 import org.objectweb.asm.Label;
 import org.objectweb.asm.MethodVisitor;
 import org.objectweb.asm.Opcodes;
 
-public class ClassVisitorStringReader extends ClassVisitor {
+public class ClassVisitorStringReader extends CUClassVisitor {
     public static final String CLASS_PATH = "com/mojang/brigadier/StringReader";  //命令选择器
     private static final String METHOD_NAME = "isAllowedInUnquotedString";
-    private final String className;
 
     public ClassVisitorStringReader(String className, ClassVisitor classVisitor) {
-        super(Opcodes.ASM9, classVisitor);
-        this.className = className;
+        super(className, classVisitor);
     }
 
     @Override
-    public MethodVisitor visitMethod(int access, String name, String descriptor, String signature, String[] exceptions) {
+    public MethodVisitor onVisitMethod(int access, String name, String descriptor, String signature, String[] exceptions) {
         MethodVisitor mv = super.visitMethod(access, name, descriptor, signature, exceptions);
         if (METHOD_NAME.equals(name) && "(C)Z".equals(descriptor) && (access & Opcodes.ACC_STATIC) > 0) {  //静态 isAllowedInUnquotedString(char)
-            Logging.info("正在修改 " + className + " 类中的 " + METHOD_NAME + "() 方法");
+            Logging.info("正在修改 " + getClassName() + " 类中的 " + METHOD_NAME + "() 方法");
             mv.visitCode();
             Label label0 = new Label();
             mv.visitLabel(label0);

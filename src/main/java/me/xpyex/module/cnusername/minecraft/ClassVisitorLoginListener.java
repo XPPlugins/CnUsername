@@ -19,7 +19,7 @@ public class ClassVisitorLoginListener extends PatternVisitor {
     }
 
     @Override
-    public MethodVisitor visitMethod(int access, String name, String descriptor, String signature, String[] exceptions) {
+    public MethodVisitor onVisitMethod(int access, String name, String descriptor, String signature, String[] exceptions) {
         MethodVisitor mv = super.visitMethod(access, name, descriptor, signature, exceptions);
         if ("(Ljava/lang/String;)Z".equals(descriptor) && (access & Opcodes.ACC_STATIC) > 0) {  //类内静态isValidUsername(String)方法
             MODIFIED = true;

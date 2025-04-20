@@ -1,11 +1,13 @@
 package me.xpyex.module.cnusername.paper;
 
 import java.util.UUID;
+import me.xpyex.module.cnusername.CnUsername;
 import me.xpyex.module.cnusername.Logging;
 import me.xpyex.module.cnusername.impl.PatternVisitor;
 import org.objectweb.asm.ClassVisitor;
 import org.objectweb.asm.MethodVisitor;
 import org.objectweb.asm.Opcodes;
+import java.lang.Runtime.Version;
 
 /**
  * Paper在{@link ClassPlayerProfile#createAuthLibProfile(UUID, String)}中 <br>
@@ -21,7 +23,7 @@ public class ClassVisitorCraftPlayerProfile extends PatternVisitor {
     }
 
     @Override
-    public MethodVisitor visitMethod(int access, String name, String descriptor, String signature, String[] exceptions) {
+    public MethodVisitor onVisitMethod(int access, String name, String descriptor, String signature, String[] exceptions) {
         MethodVisitor visitor = super.visitMethod(access, name, descriptor, signature, exceptions);
         if ("createAuthLibProfile".equals(name) && (access & Opcodes.ACC_STATIC) > 0 && "(Ljava/util/UUID;Ljava/lang/String;)Lcom/mojang/authlib/GameProfile;".equals(descriptor)) {
             Logging.info("正在修改 " + getClassName() + " 类中的 " + name + "(UUID, String) 方法");
@@ -42,5 +44,14 @@ public class ClassVisitorCraftPlayerProfile extends PatternVisitor {
             };
         }
         return visitor;
+    }
+
+    @Override
+    protected boolean canLoad() {
+        if (Version.parse("1.20.4").compareToIgnoreOptional(CnUsername.getMcVersion()) >= 0) {
+            Logging.info("服务端处于§e1.20.5以下§r版本，无需修改CraftPlayerProfile类");
+            return false;
+        }
+        return true;
     }
 }

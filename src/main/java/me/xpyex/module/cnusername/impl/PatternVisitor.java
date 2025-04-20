@@ -7,13 +7,11 @@ import me.xpyex.module.cnusername.Logging;
 import org.objectweb.asm.ClassVisitor;
 import org.objectweb.asm.Opcodes;
 
-public abstract class PatternVisitor extends ClassVisitor {
-    private final String className;
+public abstract class PatternVisitor extends CUClassVisitor {
     private final String pattern;
 
     protected PatternVisitor(String className, ClassVisitor classVisitor, String pattern) {
-        super(Opcodes.ASM9, classVisitor);
-        this.className = className;
+        super(className, classVisitor);
         String s;
         if (pattern == null || pattern.isEmpty()) {
             s = CnUsername.DEFAULT_PATTERN;
@@ -32,11 +30,6 @@ public abstract class PatternVisitor extends ClassVisitor {
         }
         Logging.info("当前组件使用的正则规则为: §6" + s);
         this.pattern = s;
-    }
-
-    public String getClassName() {
-        return className;
-        //
     }
 
     public String getPattern() {

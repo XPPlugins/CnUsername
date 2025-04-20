@@ -1,14 +1,13 @@
 package me.xpyex.plugin.cnusername;
 
+import bot.inker.acj.JvmHacker;
 import java.io.File;
 import java.lang.instrument.ClassFileTransformer;
 import java.lang.instrument.IllegalClassFormatException;
 import java.lang.instrument.Instrumentation;
 import java.lang.instrument.UnmodifiableClassException;
 import java.lang.invoke.MethodHandle;
-import java.lang.invoke.MethodHandles;
 import java.lang.invoke.MethodType;
-import java.lang.reflect.Field;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.security.ProtectionDomain;
@@ -17,12 +16,10 @@ import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicReference;
-import java.util.function.Function;
 import java.util.stream.Collectors;
-
-import bot.inker.acj.JvmHacker;
 import me.xpyex.module.cnusername.CnUsername;
 import me.xpyex.module.cnusername.Logging;
+import me.xpyex.module.cnusername.impl.CUClassVisitor;
 import me.xpyex.module.cnusername.pass.Pass;
 import me.xpyex.module.cnusername.pass.PassRegistry;
 import me.xpyex.module.cnusername.pass.RetransformPass;
@@ -78,6 +75,7 @@ public interface CnUsernamePlugin {
         }
     }
 
+    @SuppressWarnings("unchecked")
     default void applyInstrumentation(Instrumentation instrumentation) {
         instrumentation.addTransformer(new ClassFileTransformer() {
             @Override
@@ -87,10 +85,10 @@ public interface CnUsernamePlugin {
         }, true);
 
         Map<String, Class<?>> loadedClasses = Arrays.stream(instrumentation.getAllLoadedClasses())
-            .collect(Collectors.toMap(
-                clazz -> clazz.getName().replace('.', '/'),
-                clazz -> clazz
-            ));
+                                                  .collect(Collectors.toMap(
+                                                      clazz -> clazz.getName().replace('.', '/'),
+                                                      clazz -> clazz
+                                                  ));
 
         Set<Class<?>> pendingRetransformClasses = new LinkedHashSet<>();
 
@@ -127,7 +125,11 @@ public interface CnUsernamePlugin {
 
         ClassReader reader = new ClassReader(classfileBuffer);
         ClassWriter classWriter = new ClassWriter(reader, ClassWriter.COMPUTE_FRAMES);
-        ClassVisitor classVisitor = pass.create(className.replace('/', '.'), classWriter, readPluginPattern());
+        CUClassVisitor classVisitor = pass.create(className.replace('/', '.'), classWriter, readPluginPattern());
+        if (!classVisitor.canLoad) {
+            return null;
+        }
+
         reader.accept(classVisitor, 0);
         byte[] modifiedClassfileBuffer = classWriter.toByteArray();
 

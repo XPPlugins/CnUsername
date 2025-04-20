@@ -1,8 +1,9 @@
 package me.xpyex.module.cnusername.pass;
 
+import me.xpyex.module.cnusername.impl.CUClassVisitor;
 import org.objectweb.asm.ClassVisitor;
 
 @FunctionalInterface
 public interface Pass {
-  ClassVisitor create(String className, ClassVisitor classVisitor, String pattern);
+    CUClassVisitor create(String className, ClassVisitor classVisitor, String pattern);
 }

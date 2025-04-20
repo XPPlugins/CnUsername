@@ -1,5 +1,6 @@
 package me.xpyex.plugin.cnusername.bungee;
 
+import java.lang.instrument.Instrumentation;
 import me.xpyex.module.cnusername.CnUsername;
 import me.xpyex.module.cnusername.Logging;
 import me.xpyex.module.cnusername.UpdateChecker;
@@ -13,8 +14,6 @@ import net.md_5.bungee.event.EventHandler;
 import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.ClassVisitor;
 import org.objectweb.asm.ClassWriter;
-
-import java.lang.instrument.Instrumentation;
 
 public class CnUsernameBC extends Plugin implements CnUsernamePlugin {
 
@@ -57,6 +56,12 @@ public class CnUsernameBC extends Plugin implements CnUsernamePlugin {
         });
     }
 
+    @Override
+    public void onDisable() {
+        Logging.info("已卸载");
+        //
+    }
+
     private void applyLegacy() {
         try {
             ClassReader classReader = new ClassReader(ProxyServer.class.getClassLoader().getResourceAsStream(ClassVisitorAllowedCharacters.CLASS_PATH + ".class"));
@@ -79,11 +84,5 @@ public class CnUsernameBC extends Plugin implements CnUsernamePlugin {
             if (CnUsername.DEBUG) e.printStackTrace();
             Logging.warning("修改失败: " + e);
         }
-    }
-
-    @Override
-    public void onDisable() {
-        Logging.info("已卸载");
-        //
     }
 }
