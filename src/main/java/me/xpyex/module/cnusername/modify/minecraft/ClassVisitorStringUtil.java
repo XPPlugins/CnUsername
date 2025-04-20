@@ -1,4 +1,4 @@
-package me.xpyex.module.cnusername.mojang;
+package me.xpyex.module.cnusername.modify.minecraft;
 
 import me.xpyex.module.cnusername.Logging;
 import me.xpyex.module.cnusername.impl.PatternVisitor;

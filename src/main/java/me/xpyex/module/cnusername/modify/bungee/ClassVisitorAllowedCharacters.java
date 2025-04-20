@@ -1,4 +1,4 @@
-package me.xpyex.module.cnusername.minecraft;
+package me.xpyex.module.cnusername.modify.bungee;
 
 import me.xpyex.module.cnusername.Logging;
 import me.xpyex.module.cnusername.impl.PatternVisitor;
@@ -7,23 +7,18 @@ import org.objectweb.asm.Label;
 import org.objectweb.asm.MethodVisitor;
 import org.objectweb.asm.Opcodes;
 
-public class ClassVisitorLoginListener extends PatternVisitor {
-    public static final String CLASS_PATH_SPIGOT = "net/minecraft/server/network/LoginListener";
-    public static final String CLASS_PATH_MOJANG = "net/minecraft/server/network/ServerLoginPacketListenerImpl";
-    public static final String CLASS_PATH_YARN = "net/minecraft/server/network/ServerLoginNetworkHandler";
-    public static boolean MODIFIED = false;
+public class ClassVisitorAllowedCharacters extends PatternVisitor {
+    public static final String CLASS_PATH = "net/md_5/bungee/util/AllowedCharacters";
 
-    public ClassVisitorLoginListener(String className, ClassVisitor classVisitor, String pattern) {
+    public ClassVisitorAllowedCharacters(String className, ClassVisitor classVisitor, String pattern) {
         super(className, classVisitor, pattern);
-        //
     }
 
     @Override
     public MethodVisitor onVisitMethod(int access, String name, String descriptor, String signature, String[] exceptions) {
         MethodVisitor mv = super.visitMethod(access, name, descriptor, signature, exceptions);
-        if ("(Ljava/lang/String;)Z".equals(descriptor) && (access & Opcodes.ACC_STATIC) > 0) {  //类内静态isValidUsername(String)方法
-            MODIFIED = true;
-            Logging.info("正在修改 " + getClassName() + " 类中的 " + name + "(String) 方法");
+        if ("isValidName".equals(name) && (access & Opcodes.ACC_STATIC) > 0) {  //静态isValidName方法，无视参数
+            Logging.info("正在修改 " + getClassName() + " 类中的 " + name + "(String, boolean) 方法");
             mv.visitCode();
             Label label0 = new Label();
             mv.visitLabel(label0);
@@ -36,7 +31,8 @@ public class ClassVisitorLoginListener extends PatternVisitor {
             Label label1 = new Label();
             mv.visitLabel(label1);
             mv.visitLocalVariable("name", "Ljava/lang/String;", null, label0, label1, 0);
-            mv.visitMaxs(2, 1);
+            mv.visitLocalVariable("onlineMode", "Z", null, label0, label1, 1);
+            mv.visitMaxs(2, 2);
             mv.visitEnd();
             return null;
         }

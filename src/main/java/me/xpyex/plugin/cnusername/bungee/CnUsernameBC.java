@@ -4,7 +4,7 @@ import java.lang.instrument.Instrumentation;
 import me.xpyex.module.cnusername.CnUsername;
 import me.xpyex.module.cnusername.Logging;
 import me.xpyex.module.cnusername.UpdateChecker;
-import me.xpyex.module.cnusername.bungee.ClassVisitorAllowedCharacters;
+import me.xpyex.module.cnusername.modify.bungee.ClassVisitorAllowedCharacters;
 import me.xpyex.plugin.cnusername.CnUsernamePlugin;
 import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.event.PreLoginEvent;

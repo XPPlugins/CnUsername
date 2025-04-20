@@ -3,11 +3,12 @@ package me.xpyex.module.cnusername.pass;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
-import me.xpyex.module.cnusername.bungee.ClassVisitorAllowedCharacters;
-import me.xpyex.module.cnusername.minecraft.ClassVisitorLoginListener;
-import me.xpyex.module.cnusername.mojang.ClassVisitorStringReader;
-import me.xpyex.module.cnusername.mojang.ClassVisitorStringUtil;
-import me.xpyex.module.cnusername.paper.ClassVisitorCraftPlayerProfile;
+import me.xpyex.module.cnusername.modify.bungee.ClassVisitorAllowedCharacters;
+import me.xpyex.module.cnusername.modify.minecraft.ClassVisitorLoginListener;
+import me.xpyex.module.cnusername.modify.minecraft.ClassVisitorUtilColor;
+import me.xpyex.module.cnusername.modify.mojang.ClassVisitorStringReader;
+import me.xpyex.module.cnusername.modify.minecraft.ClassVisitorStringUtil;
+import me.xpyex.module.cnusername.modify.paper.ClassVisitorCraftPlayerProfile;
 
 public class PassRegistry {
     private static final Map<String, PassEntry> passMap = new LinkedHashMap<>();
@@ -20,10 +21,11 @@ public class PassRegistry {
         register(ClassVisitorLoginListener.CLASS_PATH_SPIGOT, ClassVisitorLoginListener::new);
         register(ClassVisitorLoginListener.CLASS_PATH_MOJANG, ClassVisitorLoginListener::new);
         register(ClassVisitorLoginListener.CLASS_PATH_YARN, ClassVisitorLoginListener::new);
+        register(ClassVisitorStringUtil.CLASS_PATH, ClassVisitorStringUtil::new);
+        register(ClassVisitorUtilColor.CLASS_PATH, ClassVisitorUtilColor::new);
 
         // mojang
         register(ClassVisitorStringReader.CLASS_PATH, (className, classVisitor, pattern) -> new ClassVisitorStringReader(className, classVisitor));
-        register(ClassVisitorStringUtil.CLASS_PATH, ClassVisitorStringUtil::new);
 
         // paper
         register(ClassVisitorCraftPlayerProfile.CLASS_PATH, ClassVisitorCraftPlayerProfile::new);

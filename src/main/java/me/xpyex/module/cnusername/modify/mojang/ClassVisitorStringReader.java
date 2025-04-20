@@ -1,4 +1,4 @@
-package me.xpyex.module.cnusername.mojang;
+package me.xpyex.module.cnusername.modify.mojang;
 
 import me.xpyex.module.cnusername.Logging;
 import me.xpyex.module.cnusername.impl.CUClassVisitor;
@@ -19,7 +19,7 @@ public class ClassVisitorStringReader extends CUClassVisitor {
     public MethodVisitor onVisitMethod(int access, String name, String descriptor, String signature, String[] exceptions) {
         MethodVisitor mv = super.visitMethod(access, name, descriptor, signature, exceptions);
         if (METHOD_NAME.equals(name) && "(C)Z".equals(descriptor) && (access & Opcodes.ACC_STATIC) > 0) {  //静态 isAllowedInUnquotedString(char)
-            Logging.info("正在修改 " + getClassName() + " 类中的 " + METHOD_NAME + "() 方法");
+            Logging.info("正在修改 " + getClassName() + " 类中的 " + name + "() 方法");
             mv.visitCode();
             Label label0 = new Label();
             mv.visitLabel(label0);

@@ -1,4 +1,4 @@
-package me.xpyex.module.cnusername.paper;
+package me.xpyex.module.cnusername.modify.paper;
 
 import java.util.UUID;
 import me.xpyex.module.cnusername.CnUsername;
