@@ -9,8 +9,8 @@ https://www.mcbbs.net/thread-1449800-1-1.html (已似) <p>
 https://www.mcbbs.co/thread-1158-1-1.html
 
 # 下载
-### [稳定版](releases/)
-### [测试版](actions/)
+### [稳定版](https://github.com/XPPlugins/CnUsername/releases)
+### [测试版](https://github.com/XPPlugins/CnUsername/actions)
 
 # 插件方式加载教程
 
