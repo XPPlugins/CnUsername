@@ -6,7 +6,7 @@ Allow player to use Chinese chars in username of Minecraft
 
 介绍贴: <p>
 https://www.mcbbs.net/thread-1449800-1-1.html (已似) <p>
-https://www.mcbbs.co/forum.php?mod=viewthread&tid=1158
+https://www.mcbbs.co/thread-1158-1-1.html
 
 # 下载
 ### [稳定版](releases/)
