@@ -35,7 +35,7 @@ public class CnUsernameBC extends Plugin implements CnUsernamePlugin {
     public void onEnable() {
         Logging.setLogger(getProxy().getLogger());
         Logging.info("已加载");
-        Logging.info("如遇Bug，或需提出建议: QQ1723275529");
+        CnUsername.onEnableInfo();
         getProxy().getScheduler().runAsync(this, UpdateChecker::check);
 
         Instrumentation instrumentation = instrumentationOrNull();

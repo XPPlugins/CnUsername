@@ -26,7 +26,7 @@ public final class CnUsernameBK extends JavaPlugin implements CnUsernamePlugin {
     public CnUsernameBK() {
         Logging.setLogger(getServer().getLogger());
         Logging.info("Bukkit开始初始化插件");
-        Logging.info("如遇Bug，或需提出建议: QQ1723275529");
+        CnUsername.onEnableInfo();
 
         version = Version.parse(getServer().getBukkitVersion().split("-")[0]);
         Logging.info("当前服务端版本为: §e" + version);

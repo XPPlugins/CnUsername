@@ -55,10 +55,7 @@ public class CnUsername {
     public static void premain(final String agentArgs, final Instrumentation inst) {
         Logging.debug(agentArgs);
         Logging.info("开始载入模块 §eCnUsername");
-        Logging.info("如遇Bug，或需提出建议: §aQQ群546338486 §r| §eQQ1723275529");
-        Logging.info("开源地址§6§o(GitHub)§r: https://github.com/0XPYEX0/CnUsername");
-        Logging.info("有空可以去看看有没有更新噢~");
-        Logging.info("===========================================================");
+        onEnableInfo();
         try {
             Logging.info("开始检查banned-players.json文件，以添加补丁");
             addToBanList("CS-CoreLib");
@@ -114,6 +111,13 @@ public class CnUsername {
         });
     }
 
+    public static void onEnableInfo() {
+        Logging.info("如遇Bug，或需提出建议: §aQQ群546338486 §r| §eQQ1723275529");
+        Logging.info("开源地址§6§o(GitHub)§r: https://github.com/XPPlugins/CnUsername");
+        Logging.info("有空可以去看看有没有更新噢~");
+        Logging.info("===========================================================");
+    }
+
     public static File saveClassFile(ClassWriter writer, String className) throws IOException {
         return saveClassFile(writer.toByteArray(), className);
         //
@@ -128,7 +132,7 @@ public class CnUsername {
     public static void addToBanList(String name) throws IOException {
         File f = new File("banned-players.json");
         if (f.isDirectory()) {
-            throw new RuntimeException("banned-players.json是个文件夹？\nWhy banned-players.json is a directory?");
+            throw new IllegalStateException("banned-players.json是个文件夹？\nWhy banned-players.json is a directory?");
         }
         if (!f.exists()) f.createNewFile();
         String content = Files.readString(f.toPath());
@@ -136,7 +140,7 @@ public class CnUsername {
             Logging.info("banned-players.json文件内容为空，执行覆写操作");
             Files.write(f.toPath(), ("[\n" +
                                          "  {\n" +
-                                         "    \"uuid\": \"" + UUID.nameUUIDFromBytes(("OfflinePlayer:" + name).getBytes()) + "\",\n" +  //只需要考虑离线，在线服务器不会用CnUsername也用不了
+                                         "    \"uuid\": \"" + UUID.nameUUIDFromBytes(("OfflinePlayer:" + name).getBytes()) + "\",\n" +  //只需要考虑离线，正版服务器不会用CnUsername也用不了，第三方验证注册时就不会允许这个
                                          "    \"name\": \"" + name + "\",\n" +
                                          "    \"created\": \"" + new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()) + " +0800\",\n" +
                                          "    \"source\": \"CnUsername\",\n" +
