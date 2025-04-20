@@ -6,6 +6,10 @@ Allow player to use Chinese chars in username of Minecraft
 
 介绍贴: https://www.mcbbs.net/thread-1449800-1-1.html (已似)
 
+# 下载
+### [稳定版](releases/)
+### [测试版](actions/)
+
 # 插件方式加载教程
 
 ### 推荐所有有条件的服主使用[JavaAgent方式](https://github.com/0XPYEX0/CnUsername?tab=readme-ov-file#javaagent%E5%8A%A0%E8%BD%BD%E6%95%99%E7%A8%8B)加载，以解锁所有功能
