@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.Set;
 import me.xpyex.module.cnusername.modify.bungee.ClassVisitorAllowedCharacters;
 import me.xpyex.module.cnusername.modify.minecraft.ClassVisitorLoginListener;
+import me.xpyex.module.cnusername.modify.minecraft.ClassVisitorPacketDataSerializer;
 import me.xpyex.module.cnusername.modify.minecraft.ClassVisitorUtilColor;
 import me.xpyex.module.cnusername.modify.mojang.ClassVisitorStringReader;
 import me.xpyex.module.cnusername.modify.minecraft.ClassVisitorStringUtil;
@@ -23,6 +24,7 @@ public class PassRegistry {
         register(ClassVisitorLoginListener.CLASS_PATH_YARN, ClassVisitorLoginListener::new);
         register(ClassVisitorStringUtil.CLASS_PATH, ClassVisitorStringUtil::new);
         register(ClassVisitorUtilColor.CLASS_PATH, ClassVisitorUtilColor::new);
+        register(ClassVisitorPacketDataSerializer.CLASS_PATH, ((className, classVisitor, pattern) -> new ClassVisitorPacketDataSerializer(className, classVisitor)));
 
         // mojang
         register(ClassVisitorStringReader.CLASS_PATH, (className, classVisitor, pattern) -> new ClassVisitorStringReader(className, classVisitor));

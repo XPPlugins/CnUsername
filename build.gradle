@@ -4,7 +4,7 @@ plugins {
 }
 
 group = 'me.xpyex'
-version = '1.1.0'
+version = '1.1.1'
 def pluginPackage = 'me.xpyex.plugin.CnUsername'.toLowerCase()
 def modulePackage = 'me.xpyex.module.CnUsername'.toLowerCase()
 
@@ -50,7 +50,8 @@ tasks.withType(JavaCompile) {
 jar {
     manifest {
         attributes(
-                "Premain-Class": modulePackage + '.CnUsername'
+                "Premain-Class": modulePackage + '.CnUsername',
+                "Agent-Class": modulePackage + '.CnUsername'
         )
     }
 }

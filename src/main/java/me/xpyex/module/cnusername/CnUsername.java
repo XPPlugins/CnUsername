@@ -87,26 +87,26 @@ public class CnUsername {
                 }
 
                 ClassReader reader = new ClassReader(classfileBuffer);
-                ClassWriter classWriter = new ClassWriter(reader, ClassWriter.COMPUTE_FRAMES);
+                ClassWriter classWriter = new ClassWriter(reader, ClassWriter.COMPUTE_FRAMES | ClassWriter.COMPUTE_MAXS);
                 CUClassVisitor classVisitor = pass.create(className.replace('/', '.'), classWriter, agentArgs);
                 if (!classVisitor.canLoad) {
                     return null;
                 }
 
                 reader.accept(classVisitor, 0);
-                byte[] modifiedClassfileBuffer = classWriter.toByteArray();
+                byte[] modifiedClassFileBuffer = classWriter.toByteArray();
 
                 if (DEBUG) {
                     try {
                         Logging.info("Debug模式开启，保存修改后的样本以供调试");
-                        Logging.info("已保存 " + className + " 类的文件样本至: " + saveClassFile(modifiedClassfileBuffer, className).getPath());
+                        Logging.info("已保存 " + className + " 类的文件样本至: " + saveClassFile(modifiedClassFileBuffer, className).getPath());
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
                 }
 
                 PassRegistry.setModified(className);
-                return modifiedClassfileBuffer;
+                return modifiedClassFileBuffer;
             }
         });
     }
