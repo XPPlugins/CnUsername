@@ -9,7 +9,9 @@ https://www.mcbbs.net/thread-1449800-1-1.html (已似) <p>
 https://www.mcbbs.co/thread-1158-1-1.html
 
 # 下载
+
 ### [稳定版](https://github.com/XPPlugins/CnUsername/releases)
+
 ### [测试版](https://github.com/XPPlugins/CnUsername/actions)
 
 # 插件方式加载教程
@@ -46,8 +48,10 @@ https://www.mcbbs.co/thread-1158-1-1.html
 3. 安装`LuckPerms`插件的情况下，需修改`LuckPerms`插件的配置文件`config.yml`中的`allow-invalid-usernames`为`true`
    ，否则无法正常处理权限；
 4. 安装`Skript`插件的情况下，需修改`Skript`插件的配置文件`config.sk`中的`player name regex pattern`，此为正则表达式，否则无法正常使用玩家功能.
-5. 在Docker等容器环境下，如果出现`java.nio.file.InvalidPathException: Malformed input or input contains unmappable characters`
-异常，可通过设置Java环境参数来解决: `JAVA_TOOL_OPTIONS='-Dfile.encoding="UTF-8" -Dsun.jnu.encoding="UTF-8"’`
-6. 若为Linux运行，不在容器内，也出现了5所述异常，请修改 `/etc/sysconfig/i18n` 文件，将所有的 `en_US.UTF-8` 改为 `zh_CN.UTF-8` 后重试
+5. 在Docker等容器环境下，如果出现
+   `java.nio.file.InvalidPathException: Malformed input or input contains unmappable characters`
+   异常，可通过设置Java环境参数来解决: `JAVA_TOOL_OPTIONS='-Dfile.encoding="UTF-8" -Dsun.jnu.encoding="UTF-8"’`
+6. 若为Linux运行，不在容器内，也出现了5所述异常，请修改 `/etc/sysconfig/i18n` 文件，将所有的 `en_US.UTF-8` 改为
+   `zh_CN.UTF-8` 后重试
 
 默认正则规则: `^[a-zA-Z0-9_]{3,16}|[a-zA-Z0-9_一-龥]{2,10}$`

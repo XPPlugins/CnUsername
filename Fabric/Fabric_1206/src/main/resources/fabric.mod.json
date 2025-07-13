@@ -1,0 +1,28 @@
+{
+    "schemaVersion": 1,
+    "id": "cnusername",
+    "version": "${version}",
+    "name": "CnUsername",
+    "description": "",
+    "authors": [],
+    "contact": {},
+    "license": "All-Rights-Reserved",
+    "icon": "assets/cnusername/icon.png",
+    "environment": "*",
+    "entrypoints": {
+        "client": [
+            "me.xpyex.mod.cnusername.fabric.v1206.client.CnUsernameFabricClient"
+        ],
+        "main": [
+            "me.xpyex.mod.cnusername.fabric.v1206.CnUsernameFabric"
+        ]
+    },
+    "mixins": [
+        "cnusername.mixins.json"
+    ],
+    "depends": {
+        "fabricloader": ">=${loader_version}",
+        "fabric": "*",
+        "minecraft": "${minecraft_version}"
+    }
+}

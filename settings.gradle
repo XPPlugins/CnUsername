@@ -1,1 +1,16 @@
+pluginManagement {
+    repositories {
+        maven {
+            name = 'Fabric'
+            url = 'https://maven.fabricmc.net/'
+        }
+        maven { url "https://maven.aliyun.com/repository/gradle-plugin" } // 阿里云镜像
+        gradlePluginPortal()
+    }
+}
+
+
 rootProject.name = 'CnUsername'
+include 'Fabric'
+include 'Fabric:Fabric_1206'
+include 'Plugins'
