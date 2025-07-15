@@ -37,7 +37,7 @@ jobs:
         run: chmod +x gradlew
 
       - name: Build with Gradle Wrapper
-        run: ./gradlew BuildAllPlatforms:shadowJar
+        run: ./gradlew :BuildAllPlatforms:shadowJar
 
       - name: Get Version
         id: version
