@@ -1,11 +1,12 @@
 {
     "required": true,
     "minVersion": "0.8",
-    "package": "me.xpyex.mod.cnusername.fabric.v1206.mixin",
+    "package": "me.xpyex.mod.cnusername.fabric.mixin",
     "compatibilityLevel": "JAVA_21",
     "mixins": [
-    ],
-    "client": [
+        "ServerLoginNetworkHandlerMixin_1216",
+        "StringHelperMixin_1216",
+        "StringReaderMixin_1216"
     ],
     "injectors": {
         "defaultRequire": 1

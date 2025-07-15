@@ -9,8 +9,8 @@ pluginManagement {
     }
 }
 
-
 rootProject.name = 'CnUsername'
 include 'Fabric'
-include 'Fabric:Fabric_1206'
+include 'Fabric:Fabric_1216'
 include 'Plugins'
+include 'BuildAllPlatforms'

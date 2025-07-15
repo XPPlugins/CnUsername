@@ -7,13 +7,10 @@ plugins {
 // 添加Java版本约束
 java {
     toolchain {
-        languageVersion = JavaLanguageVersion.of(21) // 强制使用Java 17
+        languageVersion = JavaLanguageVersion.of(21) // 强制使用Java 21
     }
     withSourcesJar()
 }
-
-version = project.mod_version
-group = project.maven_group
 
 base {
     archivesName = project.archives_base_name
@@ -21,6 +18,10 @@ base {
 
 
 repositories {
+    maven {
+        name = 'Fabric'
+        url = 'https://maven.fabricmc.net/'
+    }
     // Add repositories to retrieve artifacts from in here.
     // You should only use this when depending on other mods because
     // Loom adds the essential maven repositories to download Minecraft and libraries from automatically.
@@ -32,9 +33,10 @@ dependencies {
     // To change the versions see the gradle.properties file
     minecraft "com.mojang:minecraft:${project.minecraft_version}"
     mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
-    modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
+    modCompileOnly "net.fabricmc:fabric-loader:${project.loader_version}"
+    modCompileOnly "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
-    modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+    implementation project(":Plugins")
 }
 
 processResources {

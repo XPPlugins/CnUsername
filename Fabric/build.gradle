@@ -1,21 +1,19 @@
-plugins {
-    id 'java'
-}
-
-group = 'me.xpyex'
-version = '1.1.2'
-
 repositories {
+    maven {
+        name = 'Fabric'
+        url = 'https://maven.fabricmc.net/'
+    }
     mavenCentral()
 }
 
 dependencies {
+    implementation project(':Plugins')
 }
 
 // 添加Java版本约束
 java {
     toolchain {
-        languageVersion = JavaLanguageVersion.of(21) // 强制使用Java 17
+        languageVersion = JavaLanguageVersion.of(21) // 强制使用Java 21
     }
     withSourcesJar()
 }

@@ -10,19 +10,16 @@
     "icon": "assets/cnusername/icon.png",
     "environment": "*",
     "entrypoints": {
-        "client": [
-            "me.xpyex.mod.cnusername.fabric.v1206.client.CnUsernameFabricClient"
-        ],
         "main": [
-            "me.xpyex.mod.cnusername.fabric.v1206.CnUsernameFabric"
+            "me.xpyex.mod.cnusername.fabric.CnUsernameFabric"
         ]
     },
     "mixins": [
         "cnusername.mixins.json"
     ],
     "depends": {
-        "fabricloader": ">=${loader_version}",
+        "fabricloader": "*",
         "fabric": "*",
-        "minecraft": "${minecraft_version}"
+        "minecraft": ">=1.18"
     }
 }
