@@ -1,0 +1,54 @@
+plugins {
+    id 'java'
+    id 'com.gradleup.shadow' version '8.3.0'
+}
+
+repositories {
+    maven {
+        name = 'Fabric'
+        url = 'https://maven.fabricmc.net/'
+    }
+    mavenCentral()
+}
+
+dependencies {
+    implementation project(":Plugins")
+    implementation project(":Fabric:Fabric_1216")
+}
+
+shadowJar {
+    archiveBaseName = "CnUsername-" + version + ".jar"
+    archiveFileName = "CnUsername-" + version + ".jar"
+    relocate 'org.objectweb.asm', 'me.xpyex.module.cnusername.libs.asm'
+    relocate 'bot.inker.acj', 'me.xpyex.module.cnusername.libs.acj'
+}
+
+def pluginPackage = 'me.xpyex.plugin.CnUsername'.toLowerCase()
+def modulePackage = 'me.xpyex.module.CnUsername'.toLowerCase()
+
+jar {
+    manifest {
+        attributes(
+                "Premain-Class": modulePackage + '.CnUsername',
+                "Agent-Class": modulePackage + '.CnUsername'
+        )
+    }
+}
+
+processResources {
+    def props = [version: version, bc: (pluginPackage + '.bungee.CnUsernameBC'), bk: (pluginPackage + '.bukkit.CnUsernameBK')]
+    inputs.properties props
+    filteringCharset 'UTF-8'
+    filesMatching('plugin.yml') {
+        expand props
+    }
+    filesMatching('bungee.yml') {
+        expand props
+    }
+    filesMatching('version') {
+        expand props
+    }
+    filesMatching("fabric.mod.json") {
+        expand "version": version
+    }
+}
