@@ -6,21 +6,27 @@ import java.nio.file.Files;
 
 public class CnUsernameConfig {
     public static final String DEFAULT_PATTERN = "^[a-zA-Z0-9_]{3,16}|[a-zA-Z0-9_\u4e00-\u9fa5]{2,10}|CS\\-CoreLib$";
-    public static final File MODULE_FOLDER = new File("CnUsername");
+    public static File folder = null;
     private static boolean debug;
     private static String pattern = null;
 
-    static {
+    public static File getFolder() {
+        return folder;
+    }
+
+    public static void setFolder(File folder) {
         try {
-            if (MODULE_FOLDER.exists() && MODULE_FOLDER.isFile()) {
-                throw new IllegalStateException("错误: 服务端根目录下已存在CnUsername文件，且非文件夹");
+            if (folder.exists() && folder.isFile()) {
+                throw new IllegalStateException("错误: 已存在CnUsername文件，且非文件夹: " + folder.getAbsolutePath());
             }
-            if (!MODULE_FOLDER.exists()) {
-                MODULE_FOLDER.mkdirs();
+            if (!folder.exists()) {
+                folder.mkdirs();
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
+        CnUsernameConfig.folder = folder;
+        Logging.info("CnUsername的文件将会存放在: " + folder.getAbsolutePath());
     }
 
     public static String getPattern() {
@@ -29,8 +35,9 @@ public class CnUsernameConfig {
     }
 
     public static void loadConfig() {
+        if (getFolder() == null) setFolder(new File("CnUsername"));
         try {
-            File debugFile = new File(MODULE_FOLDER, "debug.txt");
+            File debugFile = new File(getFolder(), "debug.txt");
             if (!debugFile.exists()) {
                 Files.write(debugFile.toPath(), "false".getBytes(StandardCharsets.UTF_8));
             }
@@ -45,7 +52,7 @@ public class CnUsernameConfig {
 
 
         try {
-            File patternFile = new File(MODULE_FOLDER, "pattern.txt");
+            File patternFile = new File(folder, "pattern.txt");
             if (!patternFile.exists()) {
                 Files.write(patternFile.toPath(), DEFAULT_PATTERN.getBytes(StandardCharsets.UTF_8));
             }

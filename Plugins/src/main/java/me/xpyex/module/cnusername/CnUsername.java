@@ -97,7 +97,7 @@ public class CnUsername {
     }
 
     public static File saveClassFile(byte[] data, String className) throws IOException {
-        File file = new File(CnUsernameConfig.MODULE_FOLDER, className.replace("/", ".") + ".class");
+        File file = new File(CnUsernameConfig.folder, className.replace("/", ".") + ".class");
         Files.write(file.toPath(), data);
         return file;
     }
