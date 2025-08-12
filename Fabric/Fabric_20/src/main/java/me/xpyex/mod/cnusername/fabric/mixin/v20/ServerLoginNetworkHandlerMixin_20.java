@@ -3,12 +3,10 @@ package me.xpyex.mod.cnusername.fabric.mixin.v20;
 import me.xpyex.module.cnusername.CnUsernameConfig;
 import net.minecraft.server.network.ServerLoginNetworkHandler;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Pseudo;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-@Pseudo
 @Mixin(ServerLoginNetworkHandler.class)
 public abstract class ServerLoginNetworkHandlerMixin_20 {
     @Inject(method = "isValidName", at = @At("HEAD"), cancellable = true)
