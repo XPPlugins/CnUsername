@@ -17,7 +17,8 @@
     "mixins": [
         "cnusername.mixins.v18.json",
         "cnusername.mixins.v19.json",
-        "cnusername.mixins.v20.json"
+        "cnusername.mixins.v20.json",
+        "cnusername.mixins.v21.json"
     ],
     "depends": {
         "fabricloader": "*",
