@@ -1,0 +1,17 @@
+{
+    "required": true,
+    "minVersion": "0.8",
+    "package": "me.xpyex.mod.cnusername.fabric.mixin",
+    "compatibilityLevel": "JAVA_17",
+    "mixins": [
+        "v19.ServerLoginNetworkHandlerMixin_19"
+    ],
+    "client": [
+    ],
+    "injectors": {
+        "defaultRequire": 0
+    },
+    "overwrites": {
+        "requireAnnotations": true
+    }
+}

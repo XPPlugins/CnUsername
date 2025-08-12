@@ -1,5 +1,7 @@
 package me.xpyex.module.cnusername;
 
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -49,6 +51,7 @@ public class Logging {
 
     public static class ColoredConsole {
         private static final HashMap<String, String> MCColorToANSI = new HashMap<>();
+        private static boolean isClient = false;
 
         static {
             MCColorToANSI.put("§0", "\u001B[30m");
@@ -77,9 +80,18 @@ public class Logging {
 
         public static String toANSI(String s) {
             if (s == null || s.isEmpty()) return "";
+            if (s.isBlank()) return s;
             final String[] out = {s};
-            MCColorToANSI.forEach((mc, ansi) -> out[0] = out[0].replace(mc, ansi));
-            return out[0];
+            MCColorToANSI.forEach((mc, ansi) -> out[0] = out[0].replace(mc, isClient() ? "" : ansi));
+            return new String(out[0].getBytes(StandardCharsets.UTF_8), Charset.defaultCharset());
+        }
+
+        public static boolean isClient() {
+            return isClient;
+        }
+
+        public static void isClient(boolean isClient) {
+            ColoredConsole.isClient = isClient;
         }
     }
 }

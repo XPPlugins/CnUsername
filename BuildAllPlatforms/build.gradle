@@ -13,7 +13,10 @@ repositories {
 
 dependencies {
     implementation project(":Plugins")
-    implementation project(":Fabric:Fabric_1216")
+    implementation project(":Fabric:Fabric_18")
+    implementation project(":Fabric:Fabric_19")
+    implementation project(":Fabric:Fabric_20")
+    implementation project(":Fabric:Fabric_21")
 }
 
 shadowJar {
@@ -25,6 +28,10 @@ shadowJar {
 
 def pluginPackage = 'me.xpyex.plugin.CnUsername'.toLowerCase()
 def modulePackage = 'me.xpyex.module.CnUsername'.toLowerCase()
+
+tasks.withType(JavaCompile).configureEach {
+    it.options.encoding = 'UTF-8'
+}
 
 jar {
     manifest {
