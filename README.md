@@ -1,4 +1,4 @@
-# CnUsername
+# CnUsername | 慈恩又责难(？)
 
 Allow player to use Chinese chars in username of Minecraft
 
