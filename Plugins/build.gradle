@@ -3,8 +3,8 @@ plugins {
     id 'com.gradleup.shadow' version '8.3.0'
 }
 
-def pluginPackage = 'me.xpyex.plugin.CnUsername'.toLowerCase()
 def modulePackage = 'me.xpyex.module.CnUsername'.toLowerCase()
+def pluginPackage = 'me.xpyex.plugin.CnUsername'.toLowerCase()
 
 repositories {
     mavenCentral()
@@ -21,8 +21,7 @@ repositories {
 dependencies {
     compileOnly 'org.spigotmc:spigot-api:1.18.2-R0.1-SNAPSHOT'
     compileOnly 'net.md-5:bungeecord-api:1.19-R0.1-SNAPSHOT'
-    implementation 'org.ow2.asm:asm:9.7'
-    implementation 'bot.inker.acj:runtime:1.5'
+    implementation project(":Core")
 }
 
 def targetJavaVersion = 11

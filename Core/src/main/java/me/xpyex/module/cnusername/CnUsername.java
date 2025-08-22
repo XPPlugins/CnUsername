@@ -6,6 +6,7 @@ import java.lang.Runtime.Version;
 import java.lang.instrument.ClassFileTransformer;
 import java.lang.instrument.IllegalClassFormatException;
 import java.lang.instrument.Instrumentation;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.security.ProtectionDomain;
 import java.text.SimpleDateFormat;
@@ -25,10 +26,29 @@ public class CnUsername {
     private static Version MC_VERSION = null;
 
     public static void premain(final String agentArgs, final Instrumentation inst) {
-        Logging.debug(agentArgs);
+        Logging.debug("Agent Arguments: " + agentArgs);
         Logging.info("开始载入模块 §eCnUsername");
         onEnableInfo();
-        CnUsernameConfig.loadConfig();
+        CnUsernameConfig.loadConfig();  //初始化一下里面的静态变量，包括File那些，至少 != null
+
+
+        if (agentArgs != null && !agentArgs.trim().isEmpty()) {  //用了启动参数的情况下
+            Logging.warning("===========================================================");
+            Logging.warning("在JavaAgent启用时期加上后置参数的方式即将被废除");
+            Logging.warning("接下来需要修改根目录的CnUsername文件夹内的pattern.txt文件");
+            Logging.warning("正在为您自动迁移，后续请在检查文件保存完整后删除脚本内的后置参数");
+            try {
+                Files.write(CnUsernameConfig.getPatternFile().toPath(), agentArgs.getBytes(StandardCharsets.UTF_8));
+                Logging.info("已将正则规则保存至: " + CnUsernameConfig.getPatternFile().getPath());
+                CnUsernameConfig.loadConfig();
+                Logging.info("已重载配置");
+            } catch (IOException e) {
+                if (CnUsernameConfig.isDebug()) e.printStackTrace();
+            }
+            Logging.warning("===========================================================");
+        }
+
+
         try {
             Logging.info("开始检查banned-players.json文件，以添加补丁");
             addToBanList("CS-CoreLib");
@@ -38,6 +58,8 @@ public class CnUsername {
             if (CnUsernameConfig.isDebug()) e.printStackTrace();
             Logging.warning("建议服务器启动后手动封禁CS-CoreLib玩家名");
         }
+
+
         Logging.info("===========================================================");
         Logging.info("当前服务端运行于: §e" + getMcVersion());
         UpdateChecker.check();
@@ -56,12 +78,12 @@ public class CnUsername {
                 }
 
                 if (pass instanceof RetransformPass) {
-                    ((RetransformPass) pass).retransform(classBeingRedefined, agentArgs);
+                    ((RetransformPass) pass).retransform(classBeingRedefined, CnUsernameConfig.getPattern());
                 }
 
                 ClassReader reader = new ClassReader(classfileBuffer);
                 ClassWriter classWriter = new ClassWriter(reader, ClassWriter.COMPUTE_FRAMES | ClassWriter.COMPUTE_MAXS);
-                CUClassVisitor classVisitor = pass.create(className.replace('/', '.'), classWriter, agentArgs);
+                CUClassVisitor classVisitor = pass.create(className.replace('/', '.'), classWriter, CnUsernameConfig.getPattern());
                 if (!classVisitor.canLoad) {
                     return null;
                 }
@@ -109,7 +131,7 @@ public class CnUsername {
         }
         if (!f.exists()) f.createNewFile();
         String content = Files.readString(f.toPath());
-        if (content == null || content.trim().isEmpty() || "[]".equals(content.trim())) {
+        if (content.trim().isEmpty() || "[]".equals(content.trim())) {
             Logging.info("banned-players.json文件内容为空，执行覆写操作");
             Files.write(f.toPath(), ("[\n" +
                                          "  {\n" +

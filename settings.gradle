@@ -10,10 +10,11 @@ pluginManagement {
 }
 
 rootProject.name = 'CnUsername'
+include 'Core'
+include 'BuildAllPlatforms'
 include 'Fabric'
 include 'Fabric:Fabric_18'
 include 'Fabric:Fabric_19'
 include 'Fabric:Fabric_20'
 include 'Fabric:Fabric_21'
 include 'Plugins'
-include 'BuildAllPlatforms'

@@ -7,6 +7,9 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.logging.Logger;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.experimental.Accessors;
 
 public class Logging {
     private static final String PREFIX = "§b[CnUsername] §r";
@@ -14,7 +17,7 @@ public class Logging {
     private static final AtomicReference<Logger> LOGGER = new AtomicReference<>();
 
     public static void info(String s) {
-        if (LOGGER.get() == null) {
+        if (getLogger() == null) {
             System.out.println(ColoredConsole.toANSI("[" + FORMAT.format(new Date()) + " §aINFO§r]: " + PREFIX + s + "§r"));
             return;
         }
@@ -22,7 +25,7 @@ public class Logging {
     }
 
     public static void warning(String s) {
-        if (LOGGER.get() == null) {
+        if (getLogger() == null) {
             System.out.println(ColoredConsole.toANSI("[" + FORMAT.format(new Date()) + " §eWARN§r]: " + PREFIX + s + "§r"));
             return;
         }
@@ -31,7 +34,7 @@ public class Logging {
 
     public static void debug(String s) {
         if (CnUsernameConfig.isDebug()) {
-            if (LOGGER.get() == null) {
+            if (getLogger() == null) {
                 System.out.println(ColoredConsole.toANSI("[" + FORMAT.format(new Date()) + " §9DEBUG§r]: " + PREFIX + s + "§r"));
                 return;
             }
@@ -51,6 +54,9 @@ public class Logging {
 
     public static class ColoredConsole {
         private static final HashMap<String, String> MCColorToANSI = new HashMap<>();
+        @Getter
+        @Setter
+        @Accessors(fluent = true)
         private static boolean isClient = false;
 
         static {
@@ -84,14 +90,6 @@ public class Logging {
             final String[] out = {s};
             MCColorToANSI.forEach((mc, ansi) -> out[0] = out[0].replace(mc, isClient() ? "" : ansi));
             return new String(out[0].getBytes(StandardCharsets.UTF_8), Charset.defaultCharset());
-        }
-
-        public static boolean isClient() {
-            return isClient;
-        }
-
-        public static void isClient(boolean isClient) {
-            ColoredConsole.isClient = isClient;
         }
     }
 }

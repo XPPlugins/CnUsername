@@ -3,16 +3,19 @@ package me.xpyex.module.cnusername;
 import java.io.File;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import lombok.Getter;
 
 public class CnUsernameConfig {
     public static final String DEFAULT_PATTERN = "^[a-zA-Z0-9_]{3,16}|[a-zA-Z0-9_\u4e00-\u9fa5]{2,10}|CS\\-CoreLib$";
+    @Getter
     public static File folder = null;
+    @Getter
     private static boolean debug;
+    @Getter
+    private static File debugFile;
     private static String pattern = null;
-
-    public static File getFolder() {
-        return folder;
-    }
+    @Getter
+    private static File patternFile;
 
     public static void setFolder(File folder) {
         try {
@@ -26,6 +29,8 @@ public class CnUsernameConfig {
             e.printStackTrace();
         }
         CnUsernameConfig.folder = folder;
+        debugFile = new File(folder, "debug.txt");
+        patternFile = new File(folder, "pattern.txt");
         Logging.info("CnUsername的文件将会存放在: " + folder.getAbsolutePath());
     }
 
@@ -37,7 +42,6 @@ public class CnUsernameConfig {
     public static void loadConfig() {
         if (getFolder() == null) setFolder(new File("CnUsername"));
         try {
-            File debugFile = new File(getFolder(), "debug.txt");
             if (!debugFile.exists()) {
                 Files.write(debugFile.toPath(), "false".getBytes(StandardCharsets.UTF_8));
             }
@@ -52,7 +56,6 @@ public class CnUsernameConfig {
 
 
         try {
-            File patternFile = new File(folder, "pattern.txt");
             if (!patternFile.exists()) {
                 Files.write(patternFile.toPath(), DEFAULT_PATTERN.getBytes(StandardCharsets.UTF_8));
             }
@@ -65,9 +68,5 @@ public class CnUsernameConfig {
             e.printStackTrace();
         }
         Logging.info("当前使用的正则为: " + pattern);
-    }
-
-    public static boolean isDebug() {
-        return debug;
     }
 }

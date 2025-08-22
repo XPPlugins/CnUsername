@@ -14,16 +14,14 @@ repositories {
 dependencies {
     implementation project(":Plugins")
     implementation project(":Fabric")
-    implementation project(":Fabric:Fabric_18")
-    implementation project(":Fabric:Fabric_19")
-    implementation project(":Fabric:Fabric_20")
-    implementation project(":Fabric:Fabric_21")
 }
 
 shadowJar {
     archiveBaseName = "CnUsername-" + version + ".jar"
     archiveFileName = "CnUsername-" + version + ".jar"
-    relocate 'org.objectweb.asm', 'me.xpyex.module.cnusername.libs.asm'
+    relocate('org.objectweb.asm', 'me.xpyex.module.cnusername.libs.asm') {
+        exclude 'org.objectweb.asm.tree.**'
+    }
     relocate 'bot.inker.acj', 'me.xpyex.module.cnusername.libs.acj'
 }
 

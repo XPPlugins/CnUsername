@@ -91,7 +91,7 @@ public interface CnUsernamePlugin {
 
     default byte[] transform(ClassLoader loader, String className, Class<?> classBeingRedefined, byte[] classfileBuffer) {
         // fail fast, ensure not loop load
-        if (loader == null || className.startsWith("me/xpyex/module/cnusername/") || className.startsWith("me/xpyex/plugin/cnusername/")) {
+        if (loader == null || className.startsWith("cnusername/") || className.startsWith("me/xpyex/plugin/cnusername/")) {
             return null;
         }
 

@@ -4,7 +4,9 @@
     "version": "${version}",
     "name": "CnUsername",
     "description": "",
-    "authors": [],
+    "authors": [
+        "XPYEX"
+    ],
     "contact": {},
     "license": "All-Rights-Reserved",
     "icon": "assets/cnusername/icon.png",

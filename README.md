@@ -16,18 +16,18 @@ https://www.mcbbs.co/thread-1158-1-1.html
 
 # 插件方式加载教程
 
-### 推荐所有有条件的服主使用[JavaAgent方式](https://github.com/0XPYEX0/CnUsername?tab=readme-ov-file#javaagent%E5%8A%A0%E8%BD%BD%E6%95%99%E7%A8%8B)加载，以解锁所有功能
+### 推荐所有有条件的服主使用[JavaAgent方式](https://github.com/XPPlugins/CnUsername#JavaAgent加载教程)加载，以解锁所有功能
 
 1. 在[Releases](https://github.com/0XPYEX0/CnUsername/releases)中下载<br>
 2. 放入`plugins`文件夹 [仅Bukkit|BungeeCord，及其所有分支(如Spigot|Paper|WaterFall等)]<br>
 3. 插件方式加载有诸多限制，如:
    <br>    ①原版实体选择器不支持特殊名字玩家. 例如无法使用`/tp`命令，请使用`/tp "<username>"`  其中`<username>`替换为玩家名字
    <br>    ②在1.20.5+，`Paper`及其分支服务端，玩家名字长度不能长于16，否则无法进入服务器. JavaAgent加载方式不受此限制<br>
-4. 如需自定义正则匹配，请修改`plugins/CnUsername/pattern.txt`
+4. 如需自定义正则，~~请修改 `plugins/CnUsername/pattern.txt`~~ 见[注意事项](https://github.com/XPPlugins/CnUsername#注意事项)
 
 # JavaAgent加载教程
 
-### 推荐所有有条件的服主使用[JavaAgent方式](https://github.com/0XPYEX0/CnUsername?tab=readme-ov-file#javaagent%E5%8A%A0%E8%BD%BD%E6%95%99%E7%A8%8B)加载，以解锁所有功能
+### 推荐所有有条件的服主使用JavaAgent方式加载，以解锁所有功能
 
 1. 在[Releases](https://github.com/0XPYEX0/CnUsername/releases)中下载
 2. 放入`服务端根目录`
@@ -37,8 +37,8 @@ https://www.mcbbs.co/thread-1158-1-1.html
 4. JavaAgent加载模式可以解锁所有功能，包括但不限于:
    <br>    ①玩家名字长度可通过修改正则自定义
    <br>    ②能够正常使用原版实体选择器选择特殊名字玩家
-5. 如需自定义正则，修改前面启动命令为`-javaagent:CnUsername-<version>-all.jar="<正则表达式>"`，例如:
-   `-javaagent:CnUsername-1.0.7-all.jar="^[a-zA-Z0-9_]{3,16}|[a-zA-Z0-9_一-龥]{2,10}$"`
+5. 如需自定义正则，~~修改前面启动命令为`-javaagent:CnUsername-<version>-all.jar="<正则表达式>"`，例如:
+   `-javaagent:CnUsername-1.0.7-all.jar="^[a-zA-Z0-9_]{3,16}|[a-zA-Z0-9_一-龥]{2,10}$"`~~ 见[注意事项](https://github.com/XPPlugins/CnUsername#注意事项)
 
 # 注意事项
 
@@ -53,5 +53,7 @@ https://www.mcbbs.co/thread-1158-1-1.html
    异常，可通过设置Java环境参数来解决: `JAVA_TOOL_OPTIONS='-Dfile.encoding="UTF-8" -Dsun.jnu.encoding="UTF-8"’`
 6. 若为Linux运行，不在容器内，也出现了5所述异常，请修改 `/etc/sysconfig/i18n` 文件，将所有的 `en_US.UTF-8` 改为
    `zh_CN.UTF-8` 后重试
+7. 在`CnUsername/pattern.txt`文件中填入你的正则规则，即可自定义用户名的正则规则。修改之后，重启服务器即可。
+8. 由于双端的解包器限制，玩家名字长度不能超过16个字符
 
 默认正则规则: `^[a-zA-Z0-9_]{3,16}|[a-zA-Z0-9_一-龥]{2,10}$`

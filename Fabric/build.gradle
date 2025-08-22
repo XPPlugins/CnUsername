@@ -1,3 +1,8 @@
+plugins {
+    id 'java'
+    id 'fabric-loom' version '1.11-SNAPSHOT'
+}
+
 repositories {
     maven {
         name = 'Fabric'
@@ -7,7 +12,12 @@ repositories {
 }
 
 dependencies {
-    implementation project(':Plugins')
+    minecraft "com.mojang:minecraft:1.20.1"
+    mappings "net.fabricmc:yarn:1.20.1+build.10:v2"
+    modCompileOnly "net.fabricmc:fabric-loader:0.16.14"
+    modCompileOnly "net.fabricmc.fabric-api:fabric-api:0.92.6+1.20.1"
+
+    implementation project(':Core')
 }
 
 // 添加Java版本约束

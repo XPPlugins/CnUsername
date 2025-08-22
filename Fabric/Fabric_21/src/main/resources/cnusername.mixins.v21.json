@@ -1,15 +1,17 @@
 {
-    "required": true,
+    "required": false,
     "minVersion": "0.8",
     "package": "me.xpyex.mod.cnusername.fabric.mixin",
-    "compatibilityLevel": "JAVA_21",
+    "plugin": "me.xpyex.mod.cnusername.fabric.version.CnUsernameMixinPlugin",
+    "compatibilityLevel": "JAVA_17",
     "mixins": [
-        "v21.StringHelperMixin_21"
+        "v21.StringHelperMixin_21",
+        "v21.StringReaderMixin_21"
     ],
     "client": [
     ],
     "injectors": {
-        "defaultRequire": 1
+        "defaultRequire": 0
     },
     "overwrites": {
         "requireAnnotations": true
