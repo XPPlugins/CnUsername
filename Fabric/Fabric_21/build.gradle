@@ -1,4 +1,6 @@
 plugins {
+    id 'java'
+    id 'maven-publish'
     id 'fabric-loom' version '1.11-SNAPSHOT'
 }
 
@@ -23,7 +25,7 @@ dependencies {
     minecraft "com.mojang:minecraft:${project.minecraft_version}"
     mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
     modCompileOnly "net.fabricmc:fabric-loader:${project.loader_version}"
-    modCompileOnly "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+    //modCompileOnly "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
     compileOnly project(":Core")
     compileOnly project(":Fabric")
