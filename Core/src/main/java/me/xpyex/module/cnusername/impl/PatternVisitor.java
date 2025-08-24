@@ -2,10 +2,12 @@ package me.xpyex.module.cnusername.impl;
 
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
+import lombok.Getter;
 import me.xpyex.module.cnusername.CnUsernameConfig;
 import me.xpyex.module.cnusername.Logging;
 import org.objectweb.asm.ClassVisitor;
 
+@Getter
 public abstract class PatternVisitor extends CUClassVisitor {
     private final String pattern;
 
@@ -29,10 +31,5 @@ public abstract class PatternVisitor extends CUClassVisitor {
         }
         Logging.info("当前组件使用的正则规则为: §6" + s);
         this.pattern = s;
-    }
-
-    public String getPattern() {
-        return pattern;
-        //
     }
 }

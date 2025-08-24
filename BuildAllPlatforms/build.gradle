@@ -12,8 +12,13 @@ repositories {
 }
 
 dependencies {
+    implementation project(":Core")
     implementation project(":Plugins")
     implementation project(":Fabric")
+    implementation project(":Fabric:Fabric_18")
+    implementation project(":Fabric:Fabric_19")
+    implementation project(":Fabric:Fabric_20")
+    implementation project(":Fabric:Fabric_21")
 }
 
 shadowJar {

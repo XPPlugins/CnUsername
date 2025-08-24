@@ -1,7 +1,5 @@
 plugins {
-    id 'java'
     id 'fabric-loom' version '1.11-SNAPSHOT'
-    id 'maven-publish'
 }
 
 // 添加Java版本约束
@@ -36,6 +34,7 @@ dependencies {
     modCompileOnly "net.fabricmc:fabric-loader:${project.loader_version}"
     modCompileOnly "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
+    compileOnly project(":Core")
     compileOnly project(":Fabric")
 }
 

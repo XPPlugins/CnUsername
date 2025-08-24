@@ -1,6 +1,5 @@
 plugins {
     id 'fabric-loom' version '1.11-SNAPSHOT'
-    id 'maven-publish'
 }
 
 version = project.mod_version
@@ -26,6 +25,7 @@ dependencies {
     modCompileOnly "net.fabricmc:fabric-loader:${project.loader_version}"
     modCompileOnly "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
+    compileOnly project(":Core")
     compileOnly project(":Fabric")
 }
 
