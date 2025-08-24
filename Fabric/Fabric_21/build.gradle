@@ -2,6 +2,12 @@ plugins {
     id 'java'
     id 'maven-publish'
     id 'fabric-loom' version '1.11-SNAPSHOT'
+    id 'com.gradleup.shadow' version '8.3.0'
+}
+
+shadowJar {
+    archiveBaseName = "CnUsername-Fabric-mc1.21" + version + ".jar"
+    archiveFileName = "CnUsername-Fabric-mc1.21-" + version + ".jar"
 }
 
 version = project.mod_version

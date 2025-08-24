@@ -2,7 +2,6 @@ plugins {
     id 'java'
     id 'maven-publish'
     id 'fabric-loom' version '1.11-SNAPSHOT'
-    id 'com.gradleup.shadow' version '8.3.0'
 }
 
 repositories {
@@ -14,10 +13,10 @@ repositories {
 }
 
 dependencies {
-    minecraft "com.mojang:minecraft:1.21.8"
-    mappings "net.fabricmc:yarn:1.21.8+build.1:v2"
+    minecraft "com.mojang:minecraft:1.18.2"
+    mappings "net.fabricmc:yarn:1.18.2+build.4:v2"
     modCompileOnly "net.fabricmc:fabric-loader:0.17.2"
-    modCompileOnly "net.fabricmc.fabric-api:fabric-api:0.131.0+1.21.8"
+    modCompileOnly "net.fabricmc.fabric-api:fabric-api:0.77.0+1.18.2"
 
     implementation project(':Core')
 }

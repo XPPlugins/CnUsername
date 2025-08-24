@@ -71,6 +71,8 @@ processResources {
 }
 
 shadowJar {
+    archiveBaseName = "CnUsername-AgentOrPlugin-" + version + ".jar"
+    archiveFileName = "CnUsername-AgentOrPlugin-" + version + ".jar"
     relocate 'org.objectweb.asm', 'me.xpyex.module.cnusername.libs.asm'
     relocate 'bot.inker.acj', 'me.xpyex.module.cnusername.libs.acj'
 }
