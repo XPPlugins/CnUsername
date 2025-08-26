@@ -2,7 +2,6 @@
     "required": false,
     "minVersion": "0.8",
     "package": "me.xpyex.mod.cnusername.fabric.mixin",
-    "plugin": "me.xpyex.mod.cnusername.fabric.version.CnUsernameMixinPlugin",
     "compatibilityLevel": "JAVA_17",
     "mixins": [
         "v20.ServerLoginNetworkHandlerMixin_20",
@@ -13,5 +12,6 @@
     },
     "overwrites": {
         "requireAnnotations": true
-    }
+    },
+    "refmap": "fabric_20-refmap.json"
 }

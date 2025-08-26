@@ -8,26 +8,41 @@ Allow player to use Chinese chars in username of Minecraft
 https://www.mcbbs.net/thread-1449800-1-1.html (已似) <p>
 https://www.mcbbs.co/thread-1158-1-1.html
 
+# 目前支持的服务端
+| 服务端                           | 支持的版本 | 兼容方式                                          |
+|-------------------------------|-------|-----------------------------------------------|
+| Bukkit及其衍生产品                  | 1.13+ | :heavy_check_mark: (1.18+才可用插件模式，推荐JavaAgent) |
+| BungeeCord及其衍生产品              | All   | :heavy_check_mark: (插件模式与JavaAgent模式通用，结果一样)  |
+| Fabric及其衍生产品 (包括各类Hybrid核心)   | 1.18+ | :heavy_check_mark: (只能作为FabricMod加载)          |
+| Forge及其衍生产品 (包括各类Hybrid核心)    | None  | :x: 理论上不支持，并没有人测试，也没人反馈                       |
+| NeoForge及其衍生产品 (包括各类Hybrid核心) | None  | :x: 理论上不支持，并没有人测试，也没人反馈                       |
+
 # 下载
 
-### [稳定版](https://github.com/XPPlugins/CnUsername/releases)
+### [稳定版(人工手动发版)](https://github.com/XPPlugins/CnUsername/releases)
 
-### [测试版](https://github.com/XPPlugins/CnUsername/actions)
+### [测试版(Action自动构建)](https://github.com/XPPlugins/CnUsername/actions)
 
 # 插件方式加载教程
+<details>
 
-### 推荐所有有条件的服主使用[JavaAgent方式](https://github.com/XPPlugins/CnUsername#JavaAgent加载教程)加载，以解锁所有功能
+<summary>点击展开</summary>
 
-1. 在[Releases](https://github.com/0XPYEX0/CnUsername/releases)中下载<br>
+### 推荐有条件的服主使用[JavaAgent方式](https://github.com/XPPlugins/CnUsername#JavaAgent加载教程)加载，以解锁所有功能
+
+1. 点[我](https://github.com/0XPYEX0/CnUsername#下载)下载<br>
 2. 放入`plugins`文件夹 [仅Bukkit|BungeeCord，及其所有分支(如Spigot|Paper|WaterFall等)]<br>
 3. 插件方式加载有诸多限制，如:
    <br>    ①原版实体选择器不支持特殊名字玩家. 例如无法使用`/tp`命令，请使用`/tp "<username>"`  其中`<username>`替换为玩家名字
    <br>    ②在1.20.5+，`Paper`及其分支服务端，玩家名字长度不能长于16，否则无法进入服务器. JavaAgent加载方式不受此限制<br>
 4. 如需自定义正则，~~请修改 `plugins/CnUsername/pattern.txt`~~ 见[注意事项](https://github.com/XPPlugins/CnUsername#注意事项)
 
-# JavaAgent加载教程
+</details>
 
-### 推荐所有有条件的服主使用JavaAgent方式加载，以解锁所有功能
+# JavaAgent加载教程
+<details>
+
+<summary> 点击展开 </summary>
 
 1. 在[Releases](https://github.com/0XPYEX0/CnUsername/releases)中下载
 2. 放入`服务端根目录`
@@ -39,6 +54,21 @@ https://www.mcbbs.co/thread-1158-1-1.html
    <br>    ②能够正常使用原版实体选择器选择特殊名字玩家
 5. 如需自定义正则，~~修改前面启动命令为`-javaagent:CnUsername-<version>-all.jar="<正则表达式>"`，例如:
    `-javaagent:CnUsername-1.0.7-all.jar="^[a-zA-Z0-9_]{3,16}|[a-zA-Z0-9_一-龥]{2,10}$"`~~ 见[注意事项](https://github.com/XPPlugins/CnUsername#注意事项)
+</details>
+
+# FabricMod加载教程
+
+<details>
+<summary> 点击展开 </summary>
+
+1. 点[我](https://github.com/0XPYEX0/CnUsername#下载)下载<br>
+2. 把下载后的`.jar`文件放入`mods`文件夹中
+3. 请确保你已经安装过FabricAPI，并且一并放入`mods`文件夹中
+3. 启动服务端 | 客户端
+4. 若日志成功输出，或正常进入服务器，即生效
+5. 如需自定义正则，见[注意事项](https://github.com/XPPlugins/CnUsername#注意事项)
+
+</details>
 
 # 注意事项
 

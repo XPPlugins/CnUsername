@@ -14,5 +14,6 @@
     },
     "overwrites": {
         "requireAnnotations": true
-    }
+    },
+    "refmap": "fabric_19-refmap.json"
 }

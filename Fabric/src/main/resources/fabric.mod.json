@@ -14,17 +14,13 @@
     "entrypoints": {
         "main": [
             "me.xpyex.mod.cnusername.fabric.CnUsernameFabric"
+        ],
+        "preLaunch": [
+            "me.xpyex.mod.cnusername.fabric.CnUsernameFabricPreLaunch"
         ]
     },
-    "mixins": [
-        "cnusername.mixins.v18.json",
-        "cnusername.mixins.v19.json",
-        "cnusername.mixins.v20.json",
-        "cnusername.mixins.v21.json"
-    ],
     "depends": {
         "fabricloader": "*",
-        "fabric": "*",
         "minecraft": ">=1.13"
     }
 }

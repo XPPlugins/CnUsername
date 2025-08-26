@@ -11,23 +11,29 @@ repositories {
     mavenCentral()
 }
 
+configurations {
+    shadowMe {
+        extendsFrom implementation
+    }
+}
+
 dependencies {
-    implementation project(":Core")
-    implementation project(":Plugins")
-    implementation project(":Fabric")
-    implementation project(":Fabric:Fabric_18")
-    implementation project(":Fabric:Fabric_19")
-    implementation project(":Fabric:Fabric_20")
-    implementation project(":Fabric:Fabric_21")
+    shadowMe project(":Core")
+    shadowMe project(":Plugins")
+    shadowMe project(":Fabric")
+    shadowMe project(":Fabric:Fabric_18")
+    shadowMe project(":Fabric:Fabric_19")
+    shadowMe project(":Fabric:Fabric_20")
+    shadowMe project(":Fabric:Fabric_21")
 }
 
 shadowJar {
     archiveBaseName = "CnUsername-" + version + ".jar"
     archiveFileName = "CnUsername-" + version + ".jar"
-    relocate('org.objectweb.asm', 'me.xpyex.module.cnusername.libs.asm') {
-        exclude 'org.objectweb.asm.tree.**'
-    }
+    relocate 'org.objectweb.asm', 'me.xpyex.module.cnusername.libs.asm'
     relocate 'bot.inker.acj', 'me.xpyex.module.cnusername.libs.acj'
+    zip64 = true
+    configurations = [project.configurations.shadowMe]
 }
 
 def pluginPackage = 'me.xpyex.plugin.CnUsername'.toLowerCase()

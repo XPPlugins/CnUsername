@@ -36,6 +36,10 @@ public class VersionHandler {
         return MINECRAFT_VERSION;
     }
 
+    public static String getCurrentMixin() {
+        return "CnUsername.mixins.v".toLowerCase() + getMajorVersionInt() + ".json";
+    }
+
     /**
      * 获取主版本号作为整数 (如 18, 20)
      */
