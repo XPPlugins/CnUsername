@@ -8,14 +8,14 @@ Allow player to use Chinese chars in username of Minecraft
 https://www.mcbbs.net/thread-1449800-1-1.html (已似) <p>
 https://www.mcbbs.co/thread-1158-1-1.html
 
-# 目前支持的服务端
-| 服务端                           | 支持的版本 | 兼容方式                                          |
-|-------------------------------|-------|-----------------------------------------------|
-| Bukkit及其衍生产品                  | 1.13+ | :heavy_check_mark: (1.18+才可用插件模式，推荐JavaAgent) |
-| BungeeCord及其衍生产品              | All   | :heavy_check_mark: (插件模式与JavaAgent模式通用，结果一样)  |
-| Fabric及其衍生产品 (包括各类Hybrid核心)   | 1.18+ | :heavy_check_mark: (只能作为FabricMod加载)          |
-| Forge及其衍生产品 (包括各类Hybrid核心)    | None  | :x: 理论上不支持，并没有人测试，也没人反馈                       |
-| NeoForge及其衍生产品 (包括各类Hybrid核心) | None  | :x: 理论上不支持，并没有人测试，也没人反馈                       |
+# 目前支持的平台
+| 类型                                | 支持的版本 | 兼容方式                                         |
+|-----------------------------------|-------|----------------------------------------------|
+| Bukkit及其衍生服务端                     | 1.13+ | :heavy_check_mark: 1.18+才可用插件模式，推荐JavaAgent  |
+| BungeeCord及其衍生服务端                 | All   | :heavy_check_mark: 插件模式与JavaAgent模式通用，结果一样   |
+| Fabric及其衍生产品 (包括各类Hybrid核心、客户端)   | 1.18+ | :heavy_check_mark: 仅作为FabricMod加载; 支持客户端单人游戏 |
+| Forge及其衍生产品 (包括各类Hybrid核心、客户端)    | None  | :x: 理论上不支持，并没有人测试，也没人反馈                      |
+| NeoForge及其衍生产品 (包括各类Hybrid核心、客户端) | None  | :x: 理论上不支持，并没有人测试，也没人反馈                      |
 
 # 下载
 
