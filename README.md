@@ -63,10 +63,10 @@ https://www.mcbbs.co/thread-1158-1-1.html
 
 1. 点[我](https://github.com/0XPYEX0/CnUsername#下载)下载<br>
 2. 把下载后的`.jar`文件放入`mods`文件夹中
-3. 请确保你已经安装过FabricAPI，并且一并放入`mods`文件夹中
-3. 启动服务端 | 客户端
-4. 若日志成功输出，或正常进入服务器，即生效
-5. 如需自定义正则，见[注意事项](https://github.com/XPPlugins/CnUsername#注意事项)
+3. 请确保你已经安装过[FabricAPI](https://github.com/FabricMC/fabric/releases)，并且一并放入`mods`文件夹中
+4. 启动服务端 | 客户端
+5. 若日志成功输出，或正常进入服务器，即生效
+6. 如需自定义正则，见[注意事项](https://github.com/XPPlugins/CnUsername#注意事项)
 
 </details>
 
