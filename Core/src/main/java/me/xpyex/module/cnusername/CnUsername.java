@@ -107,7 +107,7 @@ public class CnUsername {
     }
 
     public static void onEnableInfo() {
-        Logging.info("如遇Bug，或需提出建议: §aQQ群546338486 §r| §eQQ1723275529");
+        Logging.info("如遇Bug，或需提出建议: §aQQ群1060596957 §r| §eQQ1723275529");
         Logging.info("开源地址§6§o(GitHub)§r: https://github.com/XPPlugins/CnUsername");
         Logging.info("有空可以去看看有没有更新噢~");
         Logging.info("===========================================================");
