@@ -8,6 +8,8 @@ Allow player to use Chinese chars in username of Minecraft
 https://www.mcbbs.net/thread-1449800-1-1.html (已似) <p>
 https://www.mcbbs.co/thread-1158-1-1.html
 
+用户交流群: [1060596957](https://qm.qq.com/q/Lj1WoG044q)
+
 # 目前支持的平台
 | 类型                                | 支持的版本 | 兼容方式                                         |
 |-----------------------------------|-------|----------------------------------------------|
