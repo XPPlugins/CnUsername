@@ -11,7 +11,12 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class ServerLoginNetworkHandlerMixin_18 {
     @Inject(require = 0, method = "isValidName", at = @At("HEAD"), cancellable = true)
     private static void CnUsername$isValidName(String name, CallbackInfoReturnable<Boolean> cir) {
-        if (name.trim().isEmpty()) cir.setReturnValue(false);
-        if (name.matches(CnUsernameConfig.getPattern())) cir.setReturnValue(true);
+        if (name.trim().isEmpty()) {
+            cir.setReturnValue(false);
+            cir.cancel();
+        } else if (name.matches(CnUsernameConfig.getPattern())) {
+            cir.setReturnValue(true);
+            cir.cancel();
+        }
     }
 }

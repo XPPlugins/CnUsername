@@ -10,7 +10,7 @@ shadowJar {
     archiveFileName = "CnUsername-Fabric-mc1.18-" + version + ".jar"
 }
 
-version = project.mod_version
+version = rootProject.version
 group = project.maven_group
 
 base {

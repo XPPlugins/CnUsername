@@ -11,7 +11,12 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class StringHelperMixin_21 {
     @Inject(at = @At("HEAD"), method = "isValidPlayerName", cancellable = true)
     private static void CnUsername$isValidPlayerName(String name, CallbackInfoReturnable<Boolean> cir) {
-        if (name.trim().isEmpty()) cir.setReturnValue(false);
-        if (name.matches(CnUsernameConfig.getPattern())) cir.setReturnValue(true);
+        if (name.trim().isEmpty()) {
+            cir.setReturnValue(false);
+            cir.cancel();
+        } else if (name.matches(CnUsernameConfig.getPattern())) {
+            cir.setReturnValue(true);
+            cir.cancel();
+        }
     }
 }

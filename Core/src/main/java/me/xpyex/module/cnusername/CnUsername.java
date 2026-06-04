@@ -39,7 +39,7 @@ public class CnUsername {
             Logging.warning("正在为您自动迁移，后续请在检查文件保存完整后删除脚本内的后置参数");
             try {
                 Files.write(CnUsernameConfig.getPatternFile().toPath(), agentArgs.getBytes(StandardCharsets.UTF_8));
-                Logging.info("已将正则规则保存至: " + CnUsernameConfig.getPatternFile().getPath());
+                Logging.info("已将正则规则保存至: " + CnUsernameConfig.getPatternFile().getAbsolutePath());
                 CnUsernameConfig.loadConfig();
                 Logging.info("已重载配置");
             } catch (IOException e) {

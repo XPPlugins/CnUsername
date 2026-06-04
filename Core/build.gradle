@@ -3,7 +3,7 @@ plugins {
 }
 
 group = 'me.xpyex'
-version = '1.1.2'
+version = '1.2.0'
 
 repositories {
     mavenCentral()
@@ -16,6 +16,7 @@ repositories {
 
 dependencies {
     implementation 'org.ow2.asm:asm:9.8'
+    implementation 'org.projectlombok:lombok:1.18.36'
 }
 
 def targetJavaVersion = 11

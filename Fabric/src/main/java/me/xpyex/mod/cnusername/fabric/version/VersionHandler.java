@@ -22,7 +22,7 @@ public class VersionHandler {
         Matcher matcher = VERSION_PATTERN.matcher(MINECRAFT_VERSION);
         if (matcher.matches() && matcher.groupCount() >= 2) {
             try {
-                majorVersionInt1 = Integer.parseInt(matcher.group(2));
+                majorVersionInt1 = Integer.parseInt("1".equals(matcher.group(1)) ? matcher.group(2) : matcher.group(1));
             } catch (NumberFormatException e) {
                 majorVersionInt1 = -1;
             }
@@ -37,7 +37,7 @@ public class VersionHandler {
     }
 
     public static String getCurrentMixin() {
-        return "CnUsername.mixins.v".toLowerCase() + getMajorVersionInt() + ".json";
+        return "CnUsername.mixins.fabric.v".toLowerCase() + getMajorVersionInt() + ".json";
     }
 
     /**

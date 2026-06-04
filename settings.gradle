@@ -1,12 +1,29 @@
 pluginManagement {
     repositories {
+        mavenLocal()
+        gradlePluginPortal()
         maven {
             name = 'Fabric'
             url = 'https://maven.fabricmc.net/'
         }
+        maven {
+            name = "NeoForgedCDN"
+            url = "https://neoforged.forgecdn.net/releases"
+        }
+        maven {
+            name = 'NeoForged'
+            url = 'https://maven.neoforged.net/releases'
+        }
+        maven {
+            name = 'NeoForged Snapshots'
+            url = 'https://maven.neoforged.net/snapshots'
+        }
         maven { url "https://maven.aliyun.com/repository/gradle-plugin" } // 阿里云镜像
-        gradlePluginPortal()
     }
+}
+
+plugins {
+    id 'org.gradle.toolchains.foojay-resolver-convention' version '0.8.0'
 }
 
 rootProject.name = 'CnUsername'
@@ -18,3 +35,5 @@ include 'Fabric:Fabric_19'
 include 'Fabric:Fabric_20'
 include 'Fabric:Fabric_21'
 include 'Plugins'
+include 'NeoForge'
+include 'NeoForge:NeoForge_21'

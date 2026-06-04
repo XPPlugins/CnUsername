@@ -1,12 +1,15 @@
 plugins {
     id 'java'
+    id 'idea'
+    id "org.jetbrains.gradle.plugin.idea-ext" version "1.1.7"
+    id 'net.neoforged.moddev' version '2.0.140' apply false
 }
 
 allprojects {
     apply plugin: 'java'
 
     group = 'me.xpyex'
-    version = '1.1.2'
+    version = '1.2.0'
 
     repositories {
         mavenCentral()
@@ -17,8 +20,8 @@ allprojects {
         compileOnly 'org.jetbrains:annotations:24.0.0'
 
         // Lombok
-        compileOnly 'org.projectlombok:lombok:1.18.34'
-        annotationProcessor 'org.projectlombok:lombok:1.18.34'
+        compileOnly 'org.projectlombok:lombok:1.18.36'
+        annotationProcessor 'org.projectlombok:lombok:1.18.36'
     }
 
     tasks.withType(JavaCompile) {
@@ -31,25 +34,5 @@ allprojects {
 
     tasks.withType(Copy) {
         duplicatesStrategy 'exclude'
-    }
-
-    def targetJavaVersion = 11
-    java {
-        def javaVersion = JavaVersion.toVersion(targetJavaVersion)
-        sourceCompatibility = javaVersion
-        targetCompatibility = javaVersion
-        if (JavaVersion.current() < javaVersion) {
-            toolchain.languageVersion = JavaLanguageVersion.of(targetJavaVersion)
-        }
-    }
-
-    tasks.withType(JavaCompile).configureEach {
-        if (targetJavaVersion >= 10 || JavaVersion.current().isJava10Compatible()) {
-            options.release = targetJavaVersion
-        }
-    }
-
-    tasks.withType(JavaCompile) {
-        options.encoding = "UTF-8"
     }
 }

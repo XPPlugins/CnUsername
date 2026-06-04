@@ -12,6 +12,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public abstract class StringReaderMixin_18 {
     @Inject(require = 0, method = "isAllowedInUnquotedString", at = @At("HEAD"), cancellable = true, remap = false)
     private static void CnUsername$isAllowedInUnquotedString(char c, CallbackInfoReturnable<Boolean> cir) {
-        if (c >= '一' && c <= '龥') cir.setReturnValue(true);  //所有中文字符
+        if (c >= '一' && c <= '龥') {
+            cir.setReturnValue(true);  //所有中文字符
+            cir.cancel();
+        }
     }
 }
