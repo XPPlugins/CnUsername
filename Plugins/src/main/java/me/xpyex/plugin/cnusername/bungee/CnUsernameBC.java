@@ -69,7 +69,7 @@ public class CnUsernameBC extends Plugin implements CnUsernamePlugin {
             String className = classReader.getClassName().replace("/", ".");
             Logging.info("开始修改类 " + className);
             ClassWriter classWriter = new ClassWriter(classReader, ClassWriter.COMPUTE_FRAMES);
-            ClassVisitor classVisitor = new ClassVisitorAllowedCharacters(className, classWriter, readPluginPattern());
+            ClassVisitor classVisitor = new ClassVisitorAllowedCharacters(className, classWriter, CnUsernameConfig.getPattern());
             classReader.accept(classVisitor, 0);
             loadClass(className, classWriter.toByteArray());
             Logging.info("修改完成并保存");

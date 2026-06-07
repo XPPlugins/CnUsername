@@ -54,7 +54,7 @@ public class ClassVisitorCraftPlayerProfile extends PatternVisitor {
 
         return visitor;
     }
-    
+
     /**
      * 创建一个删除长度检查的MethodVisitor
      * 通过丢弃从方法开始到第一个checkArgument调用之间的所有字节码来实现
@@ -62,7 +62,7 @@ public class ClassVisitorCraftPlayerProfile extends PatternVisitor {
     private MethodVisitor createRemoveLengthCheckVisitor(MethodVisitor originalVisitor) {
         return new MethodVisitor(Opcodes.ASM9, originalVisitor) {
             private boolean foundCheckArgument = false;
-            
+
             @Override
             public void visitCode() {
                 super.visitCode();
@@ -75,7 +75,7 @@ public class ClassVisitorCraftPlayerProfile extends PatternVisitor {
                 // 如果还没找到checkArgument，先写入这条指令
                 if (!foundCheckArgument) {
                     super.visitMethodInsn(opcode, owner, name, descriptor, isInterface);
-                    
+
                     // 检测到checkArgument静态方法调用，恢复正常的字节码写入
                     if (Opcodes.INVOKESTATIC == opcode && "checkArgument".equals(name)) {
                         foundCheckArgument = true;
@@ -86,7 +86,7 @@ public class ClassVisitorCraftPlayerProfile extends PatternVisitor {
                     super.visitMethodInsn(opcode, owner, name, descriptor, isInterface);
                 }
             }
-            
+
             @Override
             public void visitEnd() {
                 // 如果整个方法都没找到checkArgument，说明方法结构不符合预期，不修改

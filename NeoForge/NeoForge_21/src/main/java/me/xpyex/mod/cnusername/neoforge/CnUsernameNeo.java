@@ -23,6 +23,7 @@ import net.neoforged.fml.loading.FMLLoader;
 public class CnUsernameNeo {
     // Define mod id in a common place for everything to reference
     public static final String MOD_ID = "cnusername_neo";
+    private static ModContainer modContainer;
 
     // The constructor for the mod class is the first code that is run when your mod is loaded.
     // FML will recognize some parameter types like IEventBus or ModContainer and pass them in automatically.
@@ -30,18 +31,6 @@ public class CnUsernameNeo {
         modEventBus.addListener(this::commonSetup);
         // 保存 ModContainer 引用，用于获取游戏路径
         CnUsernameNeo.modContainer = modContainer;
-    }
-    
-    private static ModContainer modContainer;
-
-    private void commonSetup(FMLCommonSetupEvent event) {
-        Logging.info("Now in Charset: " + Charset.defaultCharset());
-        CnUsername.onEnableInfo();
-        CnUsernameConfig.setFolder(new File(getGamePath(), "CnUsername"));
-        CnUsernameConfig.loadConfig();
-        Logging.info("CnUsername已读取配置");
-        Logging.info("当前运行在: Minecraft(" + Minecraft.getInstance().getLaunchedVersion() + ") with NeoForged");
-        Logging.info("当前启动的是: " + (Logging.ColoredConsole.isClient() ? "客户端" : "服务端"));
     }
 
     private static File getGamePath() {
@@ -74,6 +63,15 @@ public class CnUsernameNeo {
         return new File(System.getProperty("user.home"), ".minecraft");
     }
 
+    private void commonSetup(FMLCommonSetupEvent event) {
+        Logging.info("Now in Charset: " + Charset.defaultCharset());
+        CnUsername.onEnableInfo();
+        CnUsernameConfig.setFolder(new File(getGamePath(), "CnUsername"));
+        CnUsernameConfig.loadConfig();
+        Logging.info("CnUsername已读取配置");
+        Logging.info("当前运行在: Minecraft(" + Minecraft.getInstance().getLaunchedVersion() + ") with NeoForged");
+        Logging.info("当前启动的是: " + (Logging.ColoredConsole.isClient() ? "客户端" : "服务端"));
+    }
 
     // You can use EventBusSubscriber to automatically register all static methods in the class annotated with @SubscribeEvent
     @EventBusSubscriber(modid = MOD_ID, value = Dist.CLIENT)

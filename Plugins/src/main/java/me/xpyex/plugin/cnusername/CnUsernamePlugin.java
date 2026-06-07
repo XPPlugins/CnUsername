@@ -14,15 +14,9 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
-import me.xpyex.module.cnusername.CnUsername;
-import me.xpyex.module.cnusername.CnUsernameConfig;
+import me.xpyex.module.cnusername.ClassTransformer;
 import me.xpyex.module.cnusername.Logging;
-import me.xpyex.module.cnusername.impl.CUClassVisitor;
-import me.xpyex.module.cnusername.pass.Pass;
 import me.xpyex.module.cnusername.pass.PassRegistry;
-import me.xpyex.module.cnusername.pass.RetransformPass;
-import org.objectweb.asm.ClassReader;
-import org.objectweb.asm.ClassWriter;
 
 public interface CnUsernamePlugin {
     AtomicReference<MethodHandle> DEFINE_CLASS_METHOD = new AtomicReference<>();
@@ -40,10 +34,6 @@ public interface CnUsernamePlugin {
             }
         }
         return DEFINE_CLASS_METHOD.get();
-    }
-
-    default String readPluginPattern() {
-        return CnUsernameConfig.getPattern();
     }
 
     default Instrumentation instrumentationOrNull() {
@@ -68,7 +58,8 @@ public interface CnUsernamePlugin {
         Map<String, Class<?>> loadedClasses = Arrays.stream(instrumentation.getAllLoadedClasses())
                                                   .collect(Collectors.toMap(
                                                       clazz -> clazz.getName().replace('.', '/'),
-                                                      clazz -> clazz
+                                                      clazz -> clazz,
+                                                      (existing, replacement) -> existing  // 遇到重复key时保留第一个
                                                   ));
 
         Set<Class<?>> pendingRetransformClasses = new LinkedHashSet<>();
@@ -90,40 +81,11 @@ public interface CnUsernamePlugin {
     }
 
     default byte[] transform(ClassLoader loader, String className, Class<?> classBeingRedefined, byte[] classfileBuffer) {
-        // fail fast, ensure not loop load
-        if (loader == null || className.startsWith("cnusername/") || className.startsWith("me/xpyex/plugin/cnusername/")) {
-            return null;
-        }
-
-        Pass pass = PassRegistry.getPass(className);
-        if (pass == null || PassRegistry.isModified(className)) {
-            return null;
-        }
-
-        if (pass instanceof RetransformPass) {
-            ((RetransformPass) pass).retransform(classBeingRedefined, readPluginPattern());
-        }
-
-        ClassReader reader = new ClassReader(classfileBuffer);
-        ClassWriter classWriter = new ClassWriter(reader, ClassWriter.COMPUTE_FRAMES);
-        CUClassVisitor classVisitor = pass.create(className.replace('/', '.'), classWriter, readPluginPattern());
-        if (!classVisitor.canLoad) {
-            return null;
-        }
-
-        reader.accept(classVisitor, 0);
-        byte[] modifiedClassfileBuffer = classWriter.toByteArray();
-
-        if (CnUsernameConfig.isDebug()) {
-            try {
-                Logging.info("Debug模式开启，保存修改后的样本以供调试");
-                Logging.info("已保存 " + className + " 类的文件样本至: " + CnUsername.saveClassFile(modifiedClassfileBuffer, className).getPath());
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-
-        PassRegistry.setModified(className);
-        return modifiedClassfileBuffer;
+        return ClassTransformer.transform(
+            loader,
+            className,
+            classBeingRedefined,
+            classfileBuffer
+        );
     }
 }

@@ -1,6 +1,5 @@
 package me.xpyex.module.cnusername;
 
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;

@@ -11,6 +11,7 @@ https://www.mcbbs.co/thread-1158-1-1.html
 用户交流群: [1060596957](https://qm.qq.com/q/Lj1WoG044q)
 
 # 目前支持的平台
+
 | 类型                                | 支持的版本 | 兼容方式                                         |
 |-----------------------------------|-------|----------------------------------------------|
 | Bukkit及其衍生服务端                     | 1.13+ | :heavy_check_mark: 1.18+才可用插件模式，推荐JavaAgent  |
@@ -26,6 +27,7 @@ https://www.mcbbs.co/thread-1158-1-1.html
 ### [测试版(Action自动构建)](https://github.com/XPPlugins/CnUsername/actions)
 
 # 插件方式加载教程
+
 <details>
 
 <summary>点击展开</summary>
@@ -37,11 +39,13 @@ https://www.mcbbs.co/thread-1158-1-1.html
 3. 插件方式加载有诸多限制，如:
    <br>    ①原版实体选择器不支持特殊名字玩家. 例如无法使用`/tp`命令，请使用`/tp "<username>"`  其中`<username>`替换为玩家名字
    <br>    ②在1.20.5+，`Paper`及其分支服务端，玩家名字长度不能长于16，否则无法进入服务器. JavaAgent加载方式不受此限制<br>
-4. 如需自定义正则，~~请修改 `plugins/CnUsername/pattern.txt`~~ 见[注意事项](https://github.com/XPPlugins/CnUsername#注意事项)
+4. 如需自定义正则，~~请修改 `plugins/CnUsername/pattern.txt`~~
+   见[注意事项](https://github.com/XPPlugins/CnUsername#注意事项)
 
 </details>
 
 # JavaAgent加载教程
+
 <details>
 
 <summary> 点击展开 </summary>
@@ -55,7 +59,9 @@ https://www.mcbbs.co/thread-1158-1-1.html
    <br>    ①玩家名字长度可通过修改正则自定义
    <br>    ②能够正常使用原版实体选择器选择特殊名字玩家
 5. 如需自定义正则，~~修改前面启动命令为`-javaagent:CnUsername-<version>-all.jar="<正则表达式>"`，例如:
-   `-javaagent:CnUsername-1.0.7-all.jar="^[a-zA-Z0-9_]{3,16}|[a-zA-Z0-9_一-龥]{2,10}$"`~~ 见[注意事项](https://github.com/XPPlugins/CnUsername#注意事项)
+   `-javaagent:CnUsername-1.0.7-all.jar="^[a-zA-Z0-9_]{3,16}|[a-zA-Z0-9_一-龥]{2,10}$"`~~
+   见[注意事项](https://github.com/XPPlugins/CnUsername#注意事项)
+
 </details>
 
 # FabricMod加载教程

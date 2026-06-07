@@ -172,7 +172,7 @@ public final class CnUsernameBK extends JavaPlugin implements CnUsernamePlugin {
         String className = reader.getClassName().replace("/", ".");
         Logging.info("开始修改类 " + className);
         ClassWriter classWriter = new ClassWriter(reader, ClassWriter.COMPUTE_FRAMES);
-        ClassVisitor classVisitor = new ClassVisitorLoginListener(className, classWriter, readPluginPattern());
+        ClassVisitor classVisitor = new ClassVisitorLoginListener(className, classWriter, CnUsernameConfig.getPattern());
         reader.accept(classVisitor, 0);
         return classWriter.toByteArray();
     }

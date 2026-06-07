@@ -1,21 +1,21 @@
 {
-  "required": true,
-  "minVersion": "0.8",
-  "package": "me.xpyex.mod.cnusername.neoforge.mixin",
-  "compatibilityLevel": "JAVA_21",
-  "mixins": [
-    "StringReaderMixin",
-    "StringUtilMixin"
-  ],
-  "client": [
-  ],
-  "injectors": {
-    "defaultRequire": 1
-  },
-  "overwrites": {
-    "requireAnnotations": true
-  },
-  "mixinextras": {
-    "minVersion": "0.6.0"
-  }
+    "required": true,
+    "minVersion": "0.8",
+    "package": "me.xpyex.mod.cnusername.neoforge.mixin",
+    "compatibilityLevel": "JAVA_21",
+    "mixins": [
+        "StringReaderMixin",
+        "StringUtilMixin"
+    ],
+    "client": [
+    ],
+    "injectors": {
+        "defaultRequire": 1
+    },
+    "overwrites": {
+        "requireAnnotations": true
+    },
+    "mixinextras": {
+        "minVersion": "0.6.0"
+    }
 }

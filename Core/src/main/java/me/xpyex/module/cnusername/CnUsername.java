@@ -15,11 +15,6 @@ import java.util.Enumeration;
 import java.util.UUID;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
-import me.xpyex.module.cnusername.impl.CUClassVisitor;
-import me.xpyex.module.cnusername.pass.Pass;
-import me.xpyex.module.cnusername.pass.PassRegistry;
-import me.xpyex.module.cnusername.pass.RetransformPass;
-import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.ClassWriter;
 
 public class CnUsername {
@@ -67,41 +62,7 @@ public class CnUsername {
         inst.addTransformer(new ClassFileTransformer() {
             @Override
             public byte[] transform(ClassLoader loader, String className, Class<?> classBeingRedefined, ProtectionDomain protectionDomain, byte[] classfileBuffer) throws IllegalClassFormatException {
-                // fail fast, ensure not loop load
-                if (loader == null || className.startsWith("me/xpyex/module/cnusername/") || className.startsWith("me/xpyex/plugin/cnusername/")) {
-                    return null;
-                }
-
-                Pass pass = PassRegistry.getPass(className);
-                if (pass == null || PassRegistry.isModified(className)) {
-                    return null;
-                }
-
-                if (pass instanceof RetransformPass) {
-                    ((RetransformPass) pass).retransform(classBeingRedefined, CnUsernameConfig.getPattern());
-                }
-
-                ClassReader reader = new ClassReader(classfileBuffer);
-                ClassWriter classWriter = new ClassWriter(reader, ClassWriter.COMPUTE_FRAMES | ClassWriter.COMPUTE_MAXS);
-                CUClassVisitor classVisitor = pass.create(className.replace('/', '.'), classWriter, CnUsernameConfig.getPattern());
-                if (!classVisitor.canLoad) {
-                    return null;
-                }
-
-                reader.accept(classVisitor, 0);
-                byte[] modifiedClassFileBuffer = classWriter.toByteArray();
-
-                if (CnUsernameConfig.isDebug()) {
-                    try {
-                        Logging.info("Debug模式开启，保存修改后的样本以供调试");
-                        Logging.info("已保存 " + className + " 类的文件样本至: " + saveClassFile(modifiedClassFileBuffer, className).getPath());
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
-
-                PassRegistry.setModified(className);
-                return modifiedClassFileBuffer;
+                return ClassTransformer.transform(loader, className, classBeingRedefined, classfileBuffer);
             }
         });
     }
