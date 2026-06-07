@@ -29,7 +29,10 @@ public final class CnUsernameBK extends JavaPlugin implements CnUsernamePlugin {
         Logging.info("Bukkit开始初始化插件");
         CnUsername.onEnableInfo();
 
-        version = Version.parse(getServer().getBukkitVersion().split("-")[0]);
+        version = Version.parse(getServer().getBukkitVersion()
+                                    .split("-")[0]
+                                    .replace(".build.", "+")
+        );
         Logging.info("当前服务端版本为: §e" + version);
 
         if (version.compareToIgnoreOptional(VER_1_20_4) == 0) {  // 1.20.4
