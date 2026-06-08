@@ -33,7 +33,6 @@ shadowJar {
     archiveFileName = "CnUsername-" + version + ".jar"
     relocate 'org.objectweb.asm', 'me.xpyex.module.cnusername.libs.asm'
     relocate 'bot.inker.acj', 'me.xpyex.module.cnusername.libs.acj'
-    relocate 'me.lucko', 'me.xpyex.module.cnusername.libs.lucko'
     zip64 = true
     configurations = [project.configurations.shadowMe]
 }
