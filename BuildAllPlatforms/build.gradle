@@ -25,7 +25,7 @@ dependencies {
     shadowMe project(":Fabric:Fabric_19")
     shadowMe project(":Fabric:Fabric_20")
     shadowMe project(":Fabric:Fabric_21")
-    //shadowMe project(":NeoForge:NeoForge_21")
+    shadowMe project(":NeoForge:NeoForge_21")
 }
 
 shadowJar {
