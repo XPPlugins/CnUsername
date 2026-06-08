@@ -1,13 +1,7 @@
 plugins {
     id 'java'
     id 'maven-publish'
-    id 'net.fabricmc.fabric-loom-remap' version '1.17.3'
-    id 'com.gradleup.shadow' version '9.4.2'
-}
-
-shadowJar {
-    archiveBaseName = "CnUsername-Fabric-mc1.18-" + version + ".jar"
-    archiveFileName = "CnUsername-Fabric-mc1.18-" + version + ".jar"
+    id 'net.fabricmc.fabric-loom'
 }
 
 version = rootProject.version
@@ -16,6 +10,7 @@ group = project.maven_group
 base {
     archivesName = project.archives_base_name
 }
+
 
 
 repositories {
@@ -27,14 +22,11 @@ repositories {
 }
 
 dependencies {
+    implementation project(':Core')
     // To change the versions see the gradle.properties file
     minecraft "com.mojang:minecraft:${project.minecraft_version}"
-    mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
-    modCompileOnly "net.fabricmc:fabric-loader:${project.loader_version}"
-    //modCompileOnly "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+    compileOnly "net.fabricmc:fabric-loader:${project.loader_version}"
 
-    compileOnly project(":Core")
-    compileOnly project(":Fabric")
 }
 
 processResources {
@@ -50,7 +42,7 @@ processResources {
     }
 }
 
-def targetJavaVersion = 17
+def targetJavaVersion = 25
 tasks.withType(JavaCompile).configureEach {
     // ensure that the encoding is set to UTF-8, no matter what the system default is
     // this fixes some edge cases with special characters not displaying correctly
@@ -75,7 +67,7 @@ java {
 
 jar {
     from("LICENSE") {
-        rename { "${it}_${project.archivesBaseName}" }
+        rename { "${it}_${project.archives_base_name}"}
     }
 }
 

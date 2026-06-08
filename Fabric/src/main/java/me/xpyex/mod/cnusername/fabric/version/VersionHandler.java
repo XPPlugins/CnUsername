@@ -8,28 +8,14 @@ public class VersionHandler {
     private static final String MINECRAFT_VERSION;
     private static final int MAJOR_VERSION_INT;
 
-    // 正则表达式匹配 Minecraft 版本号
-    private static final Pattern VERSION_PATTERN =
-        Pattern.compile("(\\d+)\\.(\\d+)(?:\\.(\\d+))?.*");
-
     static {
-        int majorVersionInt1;
         // 获取 Minecraft 版本
         MINECRAFT_VERSION = FabricLoader.getInstance().getModContainer("minecraft")
                                 .map(container -> container.getMetadata().getVersion().getFriendlyString())
                                 .orElse("unknown");
 
-        Matcher matcher = VERSION_PATTERN.matcher(MINECRAFT_VERSION);
-        if (matcher.matches() && matcher.groupCount() >= 2) {
-            try {
-                majorVersionInt1 = Integer.parseInt("1".equals(matcher.group(1)) ? matcher.group(2) : matcher.group(1));
-            } catch (NumberFormatException e) {
-                majorVersionInt1 = -1;
-            }
-        } else {
-            majorVersionInt1 = -1;
-        }
-        MAJOR_VERSION_INT = majorVersionInt1;
+        var array = MINECRAFT_VERSION.split("\\.");
+        MAJOR_VERSION_INT = ("1".equals(array[0])) ? Integer.parseInt(array[1]) : Integer.parseInt(array[0]);
     }
 
     public static String getMinecraftVersion() {
@@ -37,7 +23,8 @@ public class VersionHandler {
     }
 
     public static String getCurrentMixin() {
-        return "CnUsername.mixins.fabric.v".toLowerCase() + getMajorVersionInt() + ".json";
+        int ver = Math.min(getMajorVersionInt(), 26);  // 新版本都用的Mojang官方map，就不再需要向后兼容，只需要Fabric能加载就能跑
+        return "CnUsername.mixins.fabric.v".toLowerCase() + ver + ".json";
     }
 
     /**

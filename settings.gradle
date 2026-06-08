@@ -23,7 +23,7 @@ pluginManagement {
 }
 
 plugins {
-    id 'org.gradle.toolchains.foojay-resolver-convention' version '0.8.0'
+    id 'org.gradle.toolchains.foojay-resolver-convention' version '1.0.0'
 }
 
 rootProject.name = 'CnUsername'
@@ -34,6 +34,7 @@ include 'Fabric:Fabric_18'
 include 'Fabric:Fabric_19'
 include 'Fabric:Fabric_20'
 include 'Fabric:Fabric_21'
+include 'Fabric:Fabric_26'  // 暂时禁用，需要独立构建
 include 'Plugins'
 include 'NeoForge'
 include 'NeoForge:NeoForge_21'

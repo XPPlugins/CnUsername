@@ -2,7 +2,6 @@ plugins {
     id 'java-library'
     id 'maven-publish'
     id 'idea'
-    id "org.jetbrains.gradle.plugin.idea-ext"
     id 'net.neoforged.moddev'
 }
 

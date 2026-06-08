@@ -1,6 +1,6 @@
 plugins {
     id 'java'
-    id 'com.gradleup.shadow' version '8.3.0'
+    id 'com.gradleup.shadow' version '9.4.2'
 }
 
 def modulePackage = 'me.xpyex.module.CnUsername'.toLowerCase()
@@ -24,7 +24,8 @@ repositories {
 dependencies {
     compileOnly 'org.spigotmc:spigot-api:1.18.2-R0.1-SNAPSHOT'
     compileOnly 'io.github.waterfallmc:waterfall-api:1.21-R0.3-SNAPSHOT'
-    compileOnly 'org.ow2.asm:asm:9.8'
+    compileOnly 'org.ow2.asm:asm:9.9'
+    compileOnly 'org.ow2.asm:asm-commons:9.9'
     implementation 'bot.inker.acj:runtime:1.5'
     implementation project(":Core")
 }

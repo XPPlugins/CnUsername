@@ -2,9 +2,6 @@ plugins {
     id 'java'
 }
 
-group = 'me.xpyex'
-version = '1.2.0'
-
 repositories {
     mavenCentral()
 }
