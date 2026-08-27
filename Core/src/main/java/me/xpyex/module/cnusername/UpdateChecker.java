@@ -30,12 +30,13 @@ public class UpdateChecker {
             String result = readInputStream(connection.getInputStream()).replace("\n", "");
 
             String tagNameAfter = result.substring(result.indexOf("\"tag_name\":") + 11);
-            String tagName = tagNameAfter.substring(0, tagNameAfter.indexOf(","))
+            String tagName = tagNameAfter.substring(0, tagNameAfter.indexOf("\","))
                                  .replace(",", "")
                                  .replace("\"", "")
                                  .trim();
-            String body = result.substring(result.indexOf("\"body\":") + 7)
-                              .replace("}", "")
+            String bodyAfter = result.substring(result.indexOf("\"body\":") + 7);
+            String body = bodyAfter.substring(0, bodyAfter.indexOf("\","))
+                              .replace(",", "")
                               .replace("\"", "")
                               .trim();
             if (!("v" + version).equalsIgnoreCase(tagName)) {
