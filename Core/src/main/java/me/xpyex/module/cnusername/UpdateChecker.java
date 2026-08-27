@@ -38,12 +38,14 @@ public class UpdateChecker {
                               .replace("}", "")
                               .replace("\"", "")
                               .trim();
-            if (!("v" + version).equalsIgnoreCase(tagName)) {
+            if (compareVersion(version, tagName) < 0) {
                 Logging.info("发现新版本: §e" + tagName);
                 Logging.info("更新内容: " + body.replace("\\r", "").replace("\\n", "\n"));
                 Logging.info("§6下载地址§e§o(Github):§r https://github.com/XPPlugins/CnUsername/releases");
-            } else {
+            } else if (compareVersion(version, tagName) == 0) {
                 Logging.info("当前版本为最新版本");
+            } else {
+                Logging.info("当前版本高于最新发布版本");
             }
         } catch (Throwable e) {
             e.printStackTrace();
@@ -53,5 +55,39 @@ public class UpdateChecker {
 
     private static String readInputStream(InputStream inputStream) throws IOException {
         return new String(inputStream.readAllBytes(), StandardCharsets.UTF_8);
+    }
+
+    /**
+     * 比较两个版本号大小，忽略可选的 v 前缀，支持如 1.2.3-beta 的预发布后缀。
+     *
+     * @return v1 &lt; v2 返回负数；v1 == v2 返回 0；v1 &gt; v2 返回正数
+     */
+    private static int compareVersion(String v1, String v2) {
+        String[] parts1 = v1.replaceFirst("^[vV]", "").trim().split("\\.");
+        String[] parts2 = v2.replaceFirst("^[vV]", "").trim().split("\\.");
+        int len = Math.max(parts1.length, parts2.length);
+        for (int i = 0; i < len; i++) {
+            int n1 = i < parts1.length ? parseVersionPart(parts1[i]) : 0;
+            int n2 = i < parts2.length ? parseVersionPart(parts2[i]) : 0;
+            if (n1 != n2) {
+                return Integer.compare(n1, n2);
+            }
+        }
+        return 0;
+    }
+
+    private static int parseVersionPart(String part) {
+        int i = 0;
+        while (i < part.length() && Character.isDigit(part.charAt(i))) {
+            i++;
+        }
+        if (i == 0) {
+            return 0;
+        }
+        try {
+            return Integer.parseInt(part.substring(0, i));
+        } catch (NumberFormatException e) {
+            return 0;
+        }
     }
 }
