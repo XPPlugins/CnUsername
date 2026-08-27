@@ -24,10 +24,9 @@ repositories {
 dependencies {
     compileOnly 'org.spigotmc:spigot-api:1.18.2-R0.1-SNAPSHOT'
     compileOnly 'io.github.waterfallmc:waterfall-api:1.21-R0.3-SNAPSHOT'
-    compileOnly 'org.ow2.asm:asm:9.9'
-    compileOnly 'org.ow2.asm:asm-commons:9.9'
     implementation 'bot.inker.acj:runtime:1.5'
     implementation project(":Core")
+    compileOnly 'org.ow2.asm:asm:9.10.1'
 }
 
 def targetJavaVersion = 11
@@ -69,9 +68,6 @@ processResources {
     filesMatching('bungee.yml') {
         expand props
     }
-    filesMatching('version') {
-        expand props
-    }
 }
 
 shadowJar {
@@ -79,7 +75,6 @@ shadowJar {
     archiveFileName = "CnUsername-AgentOrPlugin-" + version + ".jar"
     relocate 'org.objectweb.asm', 'me.xpyex.module.cnusername.libs.asm'
     relocate 'bot.inker.acj', 'me.xpyex.module.cnusername.libs.acj'
-    relocate 'me.lucko', 'me.xpyex.module.cnusername.libs.lucko'
 }
 
 assemble.dependsOn(shadowJar)
