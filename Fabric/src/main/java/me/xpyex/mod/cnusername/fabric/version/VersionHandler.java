@@ -1,7 +1,5 @@
 package me.xpyex.mod.cnusername.fabric.version;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import net.fabricmc.loader.api.FabricLoader;
 
 public class VersionHandler {
